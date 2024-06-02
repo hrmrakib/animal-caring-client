@@ -1,5 +1,4 @@
-import { FaCat } from "react-icons/fa";
-import { PiDog } from "react-icons/pi";
+import { FaBirthdayCake, FaCat, FaDog } from "react-icons/fa";
 
 const HeroBanner = () => {
   return (
@@ -21,7 +20,7 @@ const HeroBanner = () => {
           <h3 className='text-2xl font-semibold'>Cats</h3>
         </div>
         <div className='px-11 py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
-          <FaCat className='text-7xl mb-2 text-purple-600' />
+          <FaDog className='text-7xl mb-2 text-purple-600' />
           <h3 className='text-2xl font-semibold'>Cats</h3>
         </div>
         <div className='px-11 py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
@@ -29,7 +28,7 @@ const HeroBanner = () => {
           <h3 className='text-2xl font-semibold'>Cats</h3>
         </div>
         <div className='px-11 py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
-          <FaCat className='text-7xl mb-2 text-purple-600' />
+          <FaBirthdayCake className='text-7xl mb-2 text-purple-600' />
           <h3 className='text-2xl font-semibold'>Cats</h3>
         </div>
       </div>
