@@ -4,6 +4,7 @@ import PetsCategory from "./home/PetsCategory";
 import CallToAction from "./home/CallToAction";
 import AboutUs from "./home/AboutUs";
 import Overview from "./home/Overview";
+import WhyChooseUs from "./home/WhyChooseUs";
 
 const Home = () => {
   return (
@@ -14,7 +15,12 @@ const Home = () => {
         <CallToAction />
         <AboutUs />
       </div>
+
       <Overview />
+
+      <div className='w-[90%] mx-auto'>
+        <WhyChooseUs />
+      </div>
     </div>
   );
 };

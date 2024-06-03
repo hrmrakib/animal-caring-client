@@ -21,7 +21,7 @@ const PetsCategory = () => {
             </a>
             <div class='px-5 pb-5'>
               <a href='#'>
-                <h5 class='text-3xl text-center my-3 text-blue-600 font-bold tracking-tight'>
+                <h5 class='text-3xl text-center my-3 text-purple-600 font-bold tracking-tight'>
                   {item.name}
                 </h5>
               </a>
