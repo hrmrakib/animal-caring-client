@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { useLoaderData } from "react-router-dom";
 
 Modal.setAppElement("#root"); // This is to avoid accessibility issues
 const pet = {
@@ -21,6 +22,7 @@ const PetDetails = () => {
     phoneNumber: "",
     address: "",
   });
+  const { _id, name, age, location, image } = useLoaderData();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -57,16 +59,12 @@ const PetDetails = () => {
   };
 
   return (
-    <div className='p-10 min-h-screen bg-gray-50'>
+    <div className='p-10 min-h-screen bg-gray-50 mt-20'>
       <div className='max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg'>
-        <img
-          src={pet.image}
-          alt={pet.name}
-          className='w-full h-64 object-cover rounded-t-lg'
-        />
-        <h2 className='text-3xl font-bold mt-4'>{pet.name}</h2>
-        <p className='text-gray-700 mt-2'>Age: {pet.age}</p>
-        <p className='text-gray-700 mt-2'>Location: {pet.location}</p>
+        <img src={image} alt={name} className='w-full h-64  rounded-t-lg' />
+        <h2 className='text-3xl font-bold mt-4'>{name}</h2>
+        <p className='text-gray-700 mt-2'>Age: {age}</p>
+        <p className='text-gray-700 mt-2'>Location: {location}</p>
         <button
           onClick={openModal}
           className='mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200'

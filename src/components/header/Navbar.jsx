@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FaCartPlus } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
@@ -30,13 +29,13 @@ const Navbar = () => {
 
   const navLinks = (
     <>
-      <li>
+      <li className='text-base lg:text-xl'>
         <NavLink to='/'>Home</NavLink>
       </li>
-      <li>
+      <li className='text-base lg:text-xl'>
         <NavLink to='/petListing'>Pet Listing</NavLink>
       </li>
-      <li>
+      <li className='text-base lg:text-xl'>
         <NavLink to='/donation'>Donation</NavLink>
       </li>
     </>
@@ -69,7 +68,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className='menu menu-sm dropdown-content *:text-white *:text-xl mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
+              className='menu menu-sm dropdown-content *:text-white mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
             >
               {navLinks}
             </ul>
@@ -77,7 +76,7 @@ const Navbar = () => {
           <img className='size-16' src='/assets/logo.png' alt='logo' />
         </div>
 
-        <div className='navbar-end max-w-[70%]'>
+        <div className='navbar-end flex items-center max-w-[70%]'>
           <div className='hidden lg:flex lg:mr-3'>
             <ul className='menu menu-horizontal px-1 *:text-white'>
               {navLinks}
@@ -109,7 +108,12 @@ const Navbar = () => {
                 )
               ) : (
                 <Link to='/login'>
-                  <button className='btn  btn-secondary mr-2'>Login</button>
+                  <button
+                    type='button'
+                    class='text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
+                  >
+                    Login
+                  </button>
                 </Link>
               )}
             </div>

@@ -15,13 +15,20 @@ const PetsCategory = () => {
       </h2>
       <div className='grid grid-cols-4 items-end gap-12'>
         {category.map((item) => (
-          <div class='w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
+          <div
+            key={item.name}
+            className='w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
+          >
             <a href='#'>
-              <img class='rounded-lg' src={item.image} alt='product image' />
+              <img
+                className='rounded-lg'
+                src={item.image}
+                alt='product image'
+              />
             </a>
-            <div class='px-5 pb-5'>
+            <div className='px-5 pb-5'>
               <a href='#'>
-                <h5 class='text-3xl text-center my-3 text-purple-600 font-bold tracking-tight'>
+                <h5 className='text-3xl text-center my-3 text-purple-600 font-bold tracking-tight'>
                   {item.name}
                 </h5>
               </a>

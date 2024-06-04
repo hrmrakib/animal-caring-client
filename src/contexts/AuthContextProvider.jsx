@@ -7,7 +7,8 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
+import auth from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
 
@@ -33,7 +34,7 @@ const AuthContextProvider = ({ children }) => {
     return signInWithPopup(auth, githubProvider);
   };
 
-  const login = (email, password) => {
+  const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -61,7 +62,7 @@ const AuthContextProvider = ({ children }) => {
     createUser,
     googleSignIn,
     githubSignIn,
-    login,
+    signIn,
     logOut,
   };
   return (
