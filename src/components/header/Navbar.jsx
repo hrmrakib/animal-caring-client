@@ -23,8 +23,8 @@ const Navbar = () => {
     };
   }, [lastScrollY]);
 
-  const handleLogOut = () => {
-    logOut();
+  const handleLogOut = async () => {
+    await logOut();
   };
 
   const navLinks = (
@@ -53,7 +53,7 @@ const Navbar = () => {
             <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-5 w-5'
+                className='h-8 w-8'
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
@@ -68,7 +68,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className='menu menu-sm dropdown-content *:text-white mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
+              className='menu menu-sm dropdown-content *:text-black mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
             >
               {navLinks}
             </ul>
@@ -90,28 +90,35 @@ const Navbar = () => {
                     <div className='dropdown dropdown-end'>
                       <div tabIndex={0} role='button' className='m-1'>
                         <img
-                          className='w-12 h-12 rounded-full'
+                          className='w-12 h-12 mr-3 rounded-full'
                           src={user?.photoURL}
                           alt=''
                         />
                       </div>
+                      <ul
+                        tabIndex={0}
+                        className='flex px-2 py-3 bg-white flex-col gap-2 dropdown-content z-[1] menu shadow rounded w-max'
+                      >
+                        <Link
+                          to='/dashboard'
+                          className='w-full text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
+                        >
+                          <li>Dashboard</li>
+                        </Link>
+                        <button
+                          onClick={handleLogOut}
+                          type='button'
+                          className='w-full text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
+                        >
+                          Logout
+                        </button>
+                      </ul>
                     </div>
-
-                    <button
-                      onClick={handleLogOut}
-                      type='button'
-                      className='text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-3 py-2.5 text-center me-2'
-                    >
-                      Logout
-                    </button>
                   </div>
                 )
               ) : (
                 <Link to='/login'>
-                  <button
-                    type='button'
-                    class='text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
-                  >
+                  <button className='btn btn-outline btn-secondary mr-2'>
                     Login
                   </button>
                 </Link>

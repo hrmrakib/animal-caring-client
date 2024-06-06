@@ -6,6 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -42,7 +43,6 @@ const Register = () => {
     } else {
       setPasswordError("");
 
-      // image upload to imgbb and then get an url
       const imageFile = { image: data.photo[0] };
 
       console.log(imageFile);
@@ -54,10 +54,10 @@ const Register = () => {
       });
 
       if (res.data.success) {
-        // now send the menu item data to the server with the image url
         const userDetail = {
           name: data.name,
           email: data.email,
+          role: "user",
           password: data.password,
           image: res.data.data.display_url,
         };
@@ -101,7 +101,7 @@ const Register = () => {
   };
 
   return (
-    <div className='mt-24 shadow-sm h-screen'>
+    <div className='shadow-sm h-screen'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='max-w-sm mx-auto border p-4 mt-4 rounded-md'
@@ -227,8 +227,8 @@ const Register = () => {
         >
           Register new account
         </button>
-        <div className='flex items-start mb-5'>
-          Already have an account{"  "}
+        <div className='flex items-start mt-5'>
+          Already have an account!{"  "} Please
           <Link to='/login' className='text-blue-600 underline ml-1'>
             Login
           </Link>

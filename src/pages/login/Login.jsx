@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const [error, setError] = useState("");
   const { signIn } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -21,19 +24,15 @@ const Login = () => {
     setError("");
     const { email, password } = data;
 
-    // if (password.length < 6) {
-    //   setError("Password at least 6 characters");
-    //   return;
-    // }
-
+    console.log("helllo login");
     signIn(email, password)
       .then((userCredential) => {
         setError("");
-        console.log(userCredential.user);
+        navigate(from);
       })
       .catch((err) => {
-        setError(err);
-        console.log(err);
+        setError(err.message);
+        console.log(err.message);
       });
   };
 

@@ -6,14 +6,14 @@ const img = "https://i.ibb.co/DrJKt1w/cats.png";
 
 const WhyChooseUs = () => {
   return (
-    <div className='grid lg:grid-cols-2 gap-12 items-center'>
+    <div className='my-24 grid lg:grid-cols-2 gap-12 items-center'>
       <div>
-        <img className='w-full h-full p-6' src={img} alt='' />
+        <img className='w-full h-full p-8' src={img} alt='' />
       </div>
 
       <div>
         <h4 className='text-blue-600 text-sm'>WHY CHOOSE US</h4>
-        <h2 className='text-5xl font-bold my-5'>
+        <h2 className='text-3xl md:text-5xl font-bold my-5'>
           Our team of volunteers is truly committed
         </h2>
         <p className='mb-5'>
@@ -22,7 +22,7 @@ const WhyChooseUs = () => {
           become a part of these happy endings.
         </p>
 
-        <div className='mb-6 flex item-center gap-10'>
+        <div className='mb-6 flex item-center gap-4 md:gap-10 '>
           <div className='bg-red-400 mt-1 p-5 rounded-lg flex items-center justify-center'>
             <FaTrain className='text-4xl text-white' />
           </div>
@@ -34,7 +34,7 @@ const WhyChooseUs = () => {
             </p>
           </div>
         </div>
-        <div className='mb-6 flex item-center gap-10'>
+        <div className='mb-6 flex item-center gap-4 md:gap-10 '>
           <div className='bg-red-400 mt-1 p-5 rounded-lg flex items-center justify-center'>
             <IoChatbubbleEllipsesOutline className='text-4xl text-white' />
           </div>

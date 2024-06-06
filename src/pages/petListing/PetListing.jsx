@@ -90,10 +90,13 @@ const PetListing = () => {
                   alt={pet.name}
                   className='w-full h-48 object-cover rounded-t-lg'
                 />
-                <div className='pt-6 pb-4'>
-                  <h3 className='text-2xl font-bold mb-2'>{pet.name}</h3>
-                  <p className='text-gray-700 mb-1'>Age: {pet.age}</p>
-                  <p className='text-gray-700 mb-1'>Location: {pet.location}</p>
+                <div className='pt-6 pb-3'>
+                  <h3 className='text-2xl font-bold mb-2'>{pet?.name}</h3>
+                  <p className='text-gray-700 mb-1'>Age: {pet?.age}</p>
+                  <p className='text-gray-700 mb-1'>
+                    Location: {pet?.location}
+                  </p>
+
                   <Link to={`/petDetails/${pet._id}`}>
                     <button className='mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200'>
                       View Details

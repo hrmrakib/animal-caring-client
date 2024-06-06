@@ -1,33 +1,63 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "./../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MyAddedPets = () => {
-  // Sample data for pets added by the user
-  const data = [
-    {
-      serial: 1,
-      name: "Buddy",
-      category: "Dog",
-      image: "https://i.ibb.co/QkrxHTn/pexels-mnannapaneni-20436462.jpg",
-      adopted: false,
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+
+  const {
+    data: myPets = [],
+    refetch,
+    isLoading: loading,
+  } = useQuery({
+    queryKey: ["myPets"],
+    queryFn: async () => {
+      // TODO:  include user email for getting his data only
+      const result = await axiosSecure.get(`/my-added-pets`);
+      return result.data;
     },
-    {
-      serial: 2,
-      name: "Mittens",
-      category: "Cat",
-      image: "https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg",
-      adopted: true,
-    },
-    // Add more pet data here
-  ];
+  });
+
+  const handleDelete = (pet) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/pets/${pet._id}`);
+        console.log(res);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        }
+      }
+    });
+  };
+
+  if (loading) {
+    return <span>Loading ...</span>;
+  }
 
   return (
-    <div className='max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
+    <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold mb-6'>My Added Pets</h2>
       <table className='min-w-full bg-white'>
         <thead>
           <tr>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Serial Number
+              #
             </th>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Pet Name
@@ -47,10 +77,10 @@ const MyAddedPets = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((pet, index) => (
+          {myPets.map((pet, index) => (
             <tr key={index} className='hover:bg-gray-100'>
               <td className='px-4 py-2 border-b border-gray-200'>
-                {pet.serial}
+                {index + 1}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>{pet.name}</td>
               <td className='px-4 py-2 border-b border-gray-200'>
@@ -71,7 +101,10 @@ const MyAddedPets = () => {
                   <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
                     Update
                   </button>
-                  <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'>
+                  <button
+                    onClick={() => handleDelete(pet)}
+                    className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'
+                  >
                     Delete
                   </button>
                   <button className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'>

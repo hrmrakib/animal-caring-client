@@ -10,10 +10,10 @@ const PetsCategory = () => {
 
   return (
     <div className='my-36'>
-      <h2 className='text-4xl max-w-lg mx-auto font-bold text-center mb-10'>
+      <h2 className='text-2xl md:text-4xl leading-tight max-w-lg mx-auto font-bold text-center mb-10'>
         Share your love with the pets in need of a home
       </h2>
-      <div className='grid grid-cols-4 items-end gap-12'>
+      <div className='grid lg:grid-cols-4 items-end gap-12'>
         {category.map((item) => (
           <div
             key={item.name}
@@ -28,7 +28,7 @@ const PetsCategory = () => {
             </a>
             <div className='px-5 pb-5'>
               <a href='#'>
-                <h5 className='text-3xl text-center my-3 text-purple-600 font-bold tracking-tight'>
+                <h5 className='text-2xl md:text-3xl text-center my-3 text-purple-600 font-bold tracking-tight'>
                   {item.name}
                 </h5>
               </a>

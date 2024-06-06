@@ -22,7 +22,7 @@ const ErrorPage = () => {
             onClick={handleGoBack}
             className='inline-block px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition'
           >
-            <FaArrowLeft className='mr-1' /> Go Back
+            Go Back
           </button>
           <a
             href='/'
