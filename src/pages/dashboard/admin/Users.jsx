@@ -1,0 +1,85 @@
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
+const Users = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/users");
+      return res.data;
+    },
+  });
+  const makeAdmin = () => {};
+
+  return (
+    <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
+      <h2 className='text-2xl font-bold mb-6'>All Users </h2>
+      <table className='min-w-full bg-white'>
+        <thead>
+          <tr>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+              #
+            </th>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+              Name
+            </th>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+              Email
+            </th>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+              Image
+            </th>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+              Status
+            </th>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={index} className='hover:bg-gray-100'>
+              <td className='px-4 py-2 border-b border-gray-200'>
+                {index + 1}
+              </td>
+              <td className='px-4 py-2 border-b border-gray-200'>
+                {user.name}
+              </td>
+              <td className='px-4 py-2 border-b border-gray-200'>
+                {user.email}
+              </td>
+              <td className='px-4 py-2 border-b border-gray-200'>
+                <img
+                  src={user.image}
+                  alt='Pet'
+                  className='w-16 h-16 object-cover rounded'
+                />
+              </td>
+              <td className='px-4 py-2 border-b border-gray-200'>
+                {user.role ? "user" : "Not user"}
+              </td>
+              <td className='px-4 py-2 border-b border-gray-200'>
+                <div className='flex space-x-2'>
+                  <button
+                    onClick={() => makeAdmin(user)}
+                    className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'
+                  >
+                    Make Admin
+                  </button>
+                  <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'>
+                    Ban
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Users;

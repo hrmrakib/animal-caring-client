@@ -1,6 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
+const isAdmin = true;
+
 const navLinks = (
   <>
     <Link
@@ -39,8 +41,29 @@ const navLinks = (
     >
       My Donations
     </Link>
+  </>
+);
 
-    <div className='divider divider-neutral my-4'></div>
+const adminLinks = (
+  <>
+    <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/dashboard/users'>
+      Users
+    </Link>
+    <Link
+      className='block py-2.5 px-4 hover:bg-gray-200'
+      to='/dashboard/petsByAdmin'
+    >
+      All Pets
+    </Link>
+    <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
+      All Donations
+    </Link>
+  </>
+);
+
+const homeLinks = (
+  <>
+    <div className='divider my-4'></div>
 
     <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
       Home
@@ -48,7 +71,7 @@ const navLinks = (
   </>
 );
 
-const Dashboard = ({ children }) => {
+const Dashboard = () => {
   const { user } = useAuth();
 
   const handleLogOut = async () => {
@@ -59,53 +82,16 @@ const Dashboard = ({ children }) => {
     <div className='flex h-screen bg-gray-100'>
       {/* sidebar */}
       <div className='hidden lg:block w-64 bg-white shadow-md'>
-        {/* large device menu */}
         <div className='p-6 text-center text-xl font-bold'>
           Pet Adoption Dashboard
         </div>
+        {/* large device menu */}
         <nav className='mt-10'>
-          <Link
-            to='/dashboard/addPet'
-            className='block py-2.5 px-4 hover:bg-gray-200'
-          >
-            Add a Pet
-          </Link>
-          <Link
-            to='/dashboard/myAddedPets'
-            className='block py-2.5 px-4 hover:bg-gray-200'
-          >
-            My Added Pets
-          </Link>
-          <Link
-            to='/dashboard/adoptionRequests'
-            className='block py-2.5 px-4 hover:bg-gray-200'
-          >
-            Adoption Requests
-          </Link>
-          <Link
-            to='/dashboard/createDonationCampaign'
-            className='block py-2.5 px-4 hover:bg-gray-200'
-          >
-            Create Donation Campaign
-          </Link>
-          <Link
-            className='block py-2.5 px-4 hover:bg-gray-200'
-            to='/dashboard/myDonationCampaigns'
-          >
-            My Donation Campaigns
-          </Link>
-          <Link
-            className='block py-2.5 px-4 hover:bg-gray-200'
-            to='/dashboard/myDonations'
-          >
-            My Donations
-          </Link>
+          {navLinks}
 
-          <div className='divider divider-neutral my-4'></div>
+          {adminLinks}
 
-          <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
-            Home
-          </Link>
+          {homeLinks}
         </nav>
       </div>
 
@@ -115,7 +101,7 @@ const Dashboard = ({ children }) => {
         <header className='bg-white shadow-md p-4'>
           <div className='max-w-7xl mx-auto flex justify-between items-center'>
             {/* small device menu */}
-            <div className='dropdown'>
+            <div className='dropdown inline-block lg:hidden'>
               <div
                 tabIndex={0}
                 role='button'
@@ -141,10 +127,16 @@ const Dashboard = ({ children }) => {
                 className='menu menu-sm dropdown-content *:text-black mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
               >
                 {navLinks}
+
+                {adminLinks}
+
+                {homeLinks}
               </ul>
             </div>
+
             <h1 className='text-xl md:text-2xl font-bold'>Dashboard</h1>
 
+            {/* right-side profile */}
             <div className='flex items-center gap-2'>
               <div className='dropdown dropdown-end'>
                 <div tabIndex={0} role='button' className='m-1'>
@@ -174,10 +166,7 @@ const Dashboard = ({ children }) => {
           </div>
         </header>
 
-        {/* Page Content */}
-        {/* <main className='flex-1 p-6 bg-gray-100'>{children}</main>
-         */}
-
+        {/* children display here */}
         <Outlet />
       </div>
     </div>

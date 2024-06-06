@@ -12,6 +12,9 @@ import AddPet from "../pages/dashboard/AddPet";
 import MyAddedPets from "../pages/dashboard/MyAddedPets";
 import UpdatePet from "../pages/dashboard/UpdatePet";
 import ErrorPage from "../pages/error/ErrorPage";
+import Users from "../pages/dashboard/admin/Users";
+import AllPets from "../pages/dashboard/admin/AllPets";
+import TestInfiityScroll from "../pages/dashboard/TestInfiityScroll";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +69,20 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/updatePet",
         element: <UpdatePet />,
+      },
+      {
+        path: "/dashboard/infinityScroll",
+        element: <TestInfiityScroll />,
+      },
+
+      // admin can access
+      {
+        path: "/dashboard/users",
+        element: <Users />,
+      },
+      {
+        path: "/dashboard/petsByAdmin",
+        element: <AllPets />,
       },
     ],
   },

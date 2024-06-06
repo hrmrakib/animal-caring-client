@@ -6,7 +6,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SocialLogin from "../../components/socialLogin/SocialSignIn";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -14,6 +15,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const Register = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -94,6 +96,7 @@ const Register = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          navigate("/");
         }
       }
       console.log("with image url", res.data);
@@ -101,7 +104,7 @@ const Register = () => {
   };
 
   return (
-    <div className='shadow-sm h-screen'>
+    <div className='shadow-sm h-screen mt-20'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='max-w-sm mx-auto border p-4 mt-4 rounded-md'
@@ -232,6 +235,12 @@ const Register = () => {
           <Link to='/login' className='text-blue-600 underline ml-1'>
             Login
           </Link>
+        </div>
+
+        <div className='divider my-5'>or</div>
+
+        <div>
+          <SocialLogin />
         </div>
       </form>
     </div>
