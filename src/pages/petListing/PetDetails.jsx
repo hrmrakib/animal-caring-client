@@ -75,7 +75,7 @@ const PetDetails = () => {
     console.log(data);
 
     const adoptionData = {
-      adpotedId: _id,
+      adpotId: _id,
       userName,
       userEmail,
       phoneNumber: data?.phoneNumber,
@@ -150,7 +150,6 @@ const PetDetails = () => {
                 type='text'
                 name='phoneNumber'
                 {...register("phoneNumber", { required: true })}
-                required
                 className='mt-1 p-2 w-full border border-gray-300 rounded'
               />
               {errors.phoneNumber && (
@@ -164,7 +163,6 @@ const PetDetails = () => {
               <textarea
                 name='address'
                 {...register("address", { required: true })}
-                required
                 className='mt-1 p-2 w-full border border-gray-300 rounded'
               ></textarea>
               {errors.address && (

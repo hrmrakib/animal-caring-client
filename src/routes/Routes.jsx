@@ -15,6 +15,7 @@ import ErrorPage from "../pages/error/ErrorPage";
 import Users from "../pages/dashboard/admin/Users";
 import AllPets from "../pages/dashboard/admin/AllPets";
 import TestInfiityScroll from "../pages/dashboard/TestInfiityScroll";
+import { baseURL } from "../utils/baseURL";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +34,7 @@ const router = createBrowserRouter([
       {
         path: "/petDetails/:id",
         element: <PetDetails />,
-        loader: ({ params }) =>
-          fetch(`http://localhost:8000/pets/${params.id}`),
+        loader: ({ params }) => fetch(`${baseURL}/pets/${params.id}`),
       },
       {
         path: "/login",
@@ -67,9 +67,12 @@ const router = createBrowserRouter([
         element: <MyAddedPets />,
       },
       {
-        path: "/dashboard/updatePet",
+        path: "/dashboard/updatePet/:id",
         element: <UpdatePet />,
+        loader: ({ params }) => fetch(`${baseURL}/pets/${params.id}`),
       },
+
+      // testing
       {
         path: "/dashboard/infinityScroll",
         element: <TestInfiityScroll />,

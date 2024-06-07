@@ -61,11 +61,8 @@ const DonationCampaigns = () => {
           }
         > */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {campaigns.map((campaign) => (
-            <div
-              key={campaign.id}
-              className='bg-white p-6 rounded-lg shadow-lg'
-            >
+          {campaigns.map((campaign, i) => (
+            <div key={i} className='bg-white p-6 rounded-lg shadow-lg'>
               <img
                 src={campaign.petImage}
                 alt={campaign.petName}

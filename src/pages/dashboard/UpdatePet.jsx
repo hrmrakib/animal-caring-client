@@ -1,113 +1,233 @@
+import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 const UpdatePet = () => {
-  const categories = [
-    { value: "Dog", label: "Dog" },
-    { value: "Cat", label: "Cat" },
-    { value: "Rabbit", label: "Rabbit" },
-    { value: "Fish", label: "Fish" },
-  ];
+  const {
+    _id,
+    name,
+    age,
+    adopted,
+    category,
+    date,
+    image,
+    location,
+    shortDescription,
+    longDescription,
+  } = useLoaderData();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const { name, age, category, location, shortDescription, longDescription } =
+      data;
+
+    const imageFile = { image: data.petPhoto[0] };
+
+    console.log(imageFile);
+
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      const userDetail = {
+        name: data.name,
+        email: data.email,
+        role: "user",
+        password: data.password,
+        image: res.data.data.display_url,
+      };
+
+      createUser(email, password)
+        .then(async (userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+
+          await updateProfile(user, {
+            displayName: name,
+            photoURL: res.data.data.display_url,
+          });
+        })
+        .then(() => {
+          setUser({
+            displayName: name,
+            photoURL: res.data.data.display_url,
+            email: email,
+          });
+        });
+
+      const menuRes = await axiosSecure.post("/users", userDetail);
+
+      console.log(menuRes.data);
+
+      if (menuRes.data.insertedId) {
+        // show success popup
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${data.name} is an user now!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      }
+    }
+    console.log("with image url", res.data);
+
+    console.log(data);
+  };
 
   return (
-    <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md'>
-      <h2 className='text-2xl font-bold mb-6'>Update Pet</h2>
-      <form>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='image'
-          >
+    <div className='max-w-20xl mt-5 mx-auto p-2 md:p-6 bg-white rounded-lg shadow-md'>
+      <h2 className='text-2xl text-center font-bold mb-4'>Update your a Pet</h2>
+      <div className='divider'></div>
+      <form
+        className='w-full grid lg:grid-cols-2 items-center gap-5'
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div>
+          <label htmlFor='image' className='block text-gray-700'>
             Pet Image
           </label>
           <input
             type='file'
-            id='image'
-            name='image'
-            className='block w-full text-sm text-gray-700 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring focus:ring-opacity-50'
+            // defaultValue={image}
+            {...register("petPhoto")}
+            className='mt-2'
           />
+          <img src={image} className='size-8 rounded-md' alt='' />
+          {/* {errors.petPhoto && (
+            <span className='text-red-600 font-medium'>
+              Pet photo is required
+            </span>
+          )} */}
         </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='name'
-          >
+        <div>
+          <label htmlFor='name' className='block text-gray-700'>
             Pet Name
           </label>
           <input
-            type='text'
-            id='name'
             name='name'
-            className='block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50'
+            type='text'
+            defaultValue={name}
+            {...register("name", { required: true })}
+            className='mt-2 p-2 w-full border rounded'
           />
+          {errors.name && (
+            <span className='text-red-600 font-medium'>
+              Pet name is required
+            </span>
+          )}
         </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='age'
-          >
+        <div>
+          <label htmlFor='age' className='block text-gray-700'>
             Pet Age
           </label>
           <input
-            type='number'
-            id='age'
             name='age'
-            className='block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50'
+            type='number'
+            defaultValue={age}
+            {...register("age", { required: true })}
+            className='mt-2 p-2 w-full border rounded'
           />
+          {errors.age && (
+            <span className='text-red-600 font-medium'>
+              Pet age is required
+            </span>
+          )}
         </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='category'
-          >
+        <div>
+          <label htmlFor='category' className='block text-gray-700'>
             Pet Category
           </label>
-        </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='location'
+          <select
+            defaultValue={category}
+            {...register("category", { required: true })}
+            className='p-2 border border-gray-300 rounded'
           >
+            <option value=''>All Categories</option>
+            <option value='Dog'>Dogs</option>
+            <option value='Cat'>Cats</option>
+            <option value='Rabbit'>Rabbits</option>
+            <option value='Fish'>Fish</option>
+          </select>
+          <br />
+          {errors.category && (
+            <span className='text-red-600 font-medium'>
+              Pet category is required
+            </span>
+          )}
+        </div>
+        <div>
+          <label htmlFor='location' className='block text-gray-700'>
             Pet Location
           </label>
           <input
-            type='text'
-            id='location'
             name='location'
-            className='block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50'
+            type='text'
+            defaultValue={location}
+            {...register("location", { required: true })}
+            className='mt-2 p-2 w-full border rounded'
           />
+          {errors.location && (
+            <span className='text-red-600 font-medium'>
+              Pet location is required
+            </span>
+          )}
         </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='shortDescription'
-          >
+        <div>
+          <label htmlFor='shortDescription' className='block text-gray-700'>
             Short Description
           </label>
           <input
-            type='text'
-            id='shortDescription'
             name='shortDescription'
-            className='block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50'
+            type='text'
+            defaultValue={shortDescription}
+            {...register("shortDescription", { required: true })}
+            className='mt-2 p-2 w-full border rounded'
           />
+          {errors.shortDescription && (
+            <span className='text-red-600 font-medium'>
+              Pet short info is required
+            </span>
+          )}
         </div>
-        <div className='mb-4'>
-          <label
-            className='block text-gray-700 text-sm font-bold mb-2'
-            htmlFor='longDescription'
-          >
+        <div>
+          <label htmlFor='longDescription' className='block text-gray-700'>
             Long Description
           </label>
-          <textarea
-            id='longDescription'
+          <input
             name='longDescription'
-            className='block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50'
-            rows='5'
+            type='textarea'
+            defaultValue={longDescription}
+            {...register("longDescription", { required: true })}
+            className='p-2 w-full border border-gray-600 rounded'
           />
+          {errors.longDescription && (
+            <span className='text-red-600 font-medium'>
+              Pet description is required
+            </span>
+          )}
         </div>
-        <button
-          type='submit'
-          className='w-full px-4 py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300'
-        >
-          Update Pet
-        </button>
+        <div className='mt-5'>
+          <button
+            type='submit'
+            className='w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200'
+          >
+            Add Pet
+          </button>
+        </div>
       </form>
     </div>
   );

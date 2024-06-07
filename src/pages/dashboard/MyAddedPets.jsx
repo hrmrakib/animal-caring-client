@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyAddedPets = () => {
   const axiosSecure = useAxiosSecure();
@@ -98,9 +99,11 @@ const MyAddedPets = () => {
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
                 <div className='flex space-x-2'>
-                  <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
-                    Update
-                  </button>
+                  <Link to={`/dashboard/updatePet/${pet._id}`}>
+                    <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
+                      Update
+                    </button>
+                  </Link>
                   <button
                     onClick={() => handleDelete(pet)}
                     className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'
