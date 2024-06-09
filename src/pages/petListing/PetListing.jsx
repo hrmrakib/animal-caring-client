@@ -3,27 +3,6 @@ import React, { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 
-const petsData = [
-  {
-    name: "Buddy",
-    age: 2,
-    location: "New York",
-    category: "Dog",
-    date: "2024-06-01",
-    image: "https://i.ibb.co/QkrxHTn/pexels-mnannapaneni-20436462.jpg",
-    adpoted: false,
-  },
-  {
-    name: "Mittens",
-    age: 3,
-    location: "Los Angeles",
-    category: "Cat",
-    date: "2024-06-02",
-    image: "https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg",
-    adpoted: false,
-  },
-];
-
 const PetListing = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -82,7 +61,7 @@ const PetListing = () => {
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {(filteredPets.length &&
+          {filteredPets.length &&
             filteredPets.map((pet) => (
               <div key={pet._id} className='bg-white p-6 rounded-lg shadow-lg'>
                 <img
@@ -104,11 +83,7 @@ const PetListing = () => {
                   </Link>
                 </div>
               </div>
-            ))) || (
-            <p className='text-center text-red-500 font-medium'>
-              No data found!
-            </p>
-          )}
+            ))}
         </div>
       </div>
     </div>

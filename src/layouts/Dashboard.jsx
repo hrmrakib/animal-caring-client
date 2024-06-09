@@ -1,5 +1,6 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAdmin from "../hooks/useAdmin";
 
 const isAdmin = true;
 
@@ -72,7 +73,9 @@ const homeLinks = (
 );
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+  const [isAdmin] = useAdmin();
+  const navigate = useNavigate();
 
   const handleLogOut = async () => {
     await logOut();
@@ -81,22 +84,22 @@ const Dashboard = () => {
   return (
     <div className='flex h-screen bg-gray-100'>
       {/* sidebar */}
-      <div className='hidden lg:block w-64 bg-white shadow-md'>
+      <div className='lg:w-64 lg:fixed lg:h-full hidden lg:block  bg-white shadow-md'>
         <div className='p-6 text-center text-xl font-bold'>
           Pet Adoption Dashboard
         </div>
         {/* large device menu */}
         <nav className='mt-10'>
-          {navLinks}
+          {user ? navLinks : navigate("/login")}
 
-          {adminLinks}
+          {user && isAdmin && adminLinks}
 
           {homeLinks}
         </nav>
       </div>
 
       {/* main content */}
-      <div className='flex-1 flex flex-col'>
+      <div className='lg:ml-64 flex-1 lg:overflow-y-auto flex flex-col'>
         {/* top navbar */}
         <header className='bg-white shadow-md p-4'>
           <div className='max-w-7xl mx-auto flex justify-between items-center'>
@@ -126,7 +129,7 @@ const Dashboard = () => {
                 tabIndex={0}
                 className='menu menu-sm dropdown-content *:text-black mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
               >
-                {navLinks}
+                {user ? navLinks : navigate("/login")}
 
                 {adminLinks}
 

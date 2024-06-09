@@ -18,6 +18,7 @@ import TestInfiityScroll from "../pages/dashboard/TestInfiityScroll";
 import { baseURL } from "../utils/baseURL";
 import CreateDonationCampaign from "../pages/dashboard/CreateDonationCampaign";
 import AdoptRequests from "../pages/dashboard/AdoptRequests";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -100,7 +101,11 @@ const router = createBrowserRouter([
       // admin can access
       {
         path: "/dashboard/users",
-        element: <Users />,
+        element: (
+          <AdminRoute>
+            <Users />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/petsByAdmin",

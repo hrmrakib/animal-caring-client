@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const img = "https://i.ibb.co/NyFdZpk/close-up-gray-kitten-nature.jpg";
 
@@ -14,9 +15,11 @@ const CallToAction = () => {
           a pet a better life, but also opening up space for another pet in
           need.
         </p>
-        <button className='bg-orange-500 text-white border-none py-2 px-6 text-lg rounded hover:bg-orange-600 transition duration-200'>
-          Adopt Now
-        </button>
+        <Link to='/petListing'>
+          <button className='bg-orange-500 text-white border-none py-2 px-6 text-lg rounded hover:bg-orange-600 transition duration-200'>
+            Adopt Now
+          </button>
+        </Link>
       </div>
       <div className='max-w-xs order-1 md:order-2 mb-3 md:mb-0'>
         <img className='max-w-full rounded-lg' src={img} alt='Adopt a Pet' />
