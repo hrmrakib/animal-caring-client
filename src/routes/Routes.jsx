@@ -16,6 +16,8 @@ import Users from "../pages/dashboard/admin/Users";
 import AllPets from "../pages/dashboard/admin/AllPets";
 import TestInfiityScroll from "../pages/dashboard/TestInfiityScroll";
 import { baseURL } from "../utils/baseURL";
+import CreateDonationCampaign from "../pages/dashboard/CreateDonationCampaign";
+import AdoptRequests from "../pages/dashboard/AdoptRequests";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +61,15 @@ const router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
+        path: "",
+        element: (
+          <div className='w-full h-full flex flex-col justify-center items-center'>
+            <h1 className='lg:text-5xl font-bold mb-3'>Welcome to Dashboard</h1>
+            <p>👈 Navigate your tab</p>
+          </div>
+        ),
+      },
+      {
         path: "/dashboard/addPet",
         element: <AddPet />,
       },
@@ -67,9 +78,17 @@ const router = createBrowserRouter([
         element: <MyAddedPets />,
       },
       {
+        path: "/dashboard/adoptionRequests",
+        element: <AdoptRequests />,
+      },
+      {
         path: "/dashboard/updatePet/:id",
         element: <UpdatePet />,
         loader: ({ params }) => fetch(`${baseURL}/pets/${params.id}`),
+      },
+      {
+        path: "/dashboard/createDonationCampaign",
+        element: <CreateDonationCampaign />,
       },
 
       // testing

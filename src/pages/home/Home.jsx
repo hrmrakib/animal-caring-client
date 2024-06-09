@@ -8,7 +8,7 @@ import WhyChooseUs from "./home/WhyChooseUs";
 
 const Home = () => {
   return (
-    <div>
+    <div className='bg-white dark:bg-gray-900'>
       <HeroBanner />
       <div className='w-[90%] mx-auto'>
         <PetsCategory />

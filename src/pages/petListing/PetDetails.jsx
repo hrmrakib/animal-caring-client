@@ -4,6 +4,7 @@ import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "./../../hooks/useAxiosSecure";
 
 Modal.setAppElement("#root");
 
@@ -20,6 +21,7 @@ const PetDetails = () => {
   const { user } = useAuth();
   const locations = useLocation();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const userName = user?.displayName;
   const userEmail = user?.email;
@@ -71,19 +73,42 @@ const PetDetails = () => {
     setModalIsOpen(false);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
 
     const adoptionData = {
-      adpotId: _id,
+      adoptId: _id,
       userName,
       userEmail,
       phoneNumber: data?.phoneNumber,
       address: data?.address,
     };
 
-    console.log("Adoption Data Submitted:", adoptionData);
+    const res = await axiosSecure.post("/adopt-request", adoptionData);
 
+    if (res.data.isExist) {
+      Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: "Already send adopt request!",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      navigate("/petListing");
+    }
+
+    console.log("Adoption Data Submitted:", res.data);
+
+    if (res.data.insertedId) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Adopt request send successfully!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      navigate("/petListing");
+    }
     // Close the modal after submission
     closeModal();
   };

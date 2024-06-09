@@ -4,6 +4,7 @@ import useAxiosSecure from "./../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Loading from "./../../components/loading/Loading";
 
 const MyAddedPets = () => {
   const axiosSecure = useAxiosSecure();
@@ -48,7 +49,7 @@ const MyAddedPets = () => {
   };
 
   if (loading) {
-    return <span>Loading ...</span>;
+    return <Loading />;
   }
 
   return (

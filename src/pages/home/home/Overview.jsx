@@ -15,11 +15,11 @@ const Overview = () => {
           </div>
 
           <div>
-            <h2 className='text-3xl md:text-5xl font-bold text-white max-w-[660px] mb-2 md:mb-6'>
+            <h2 className='text-3xl md:text-5xl font-bold text-white dark:text-white max-w-[660px] mb-2 md:mb-6'>
               Share your love with the pets in need of a home
             </h2>
 
-            <p className='text-gray-200 text-sm md:text-lg max-w-[700px]'>
+            <p className='text-gray-200 dark:text-white text-sm md:text-lg max-w-[700px]'>
               Every year, millions of pets are abandoned or surrendered to
               shelters. These animals are in desperate need of a second chance
               at life and a loving home. At PetAdopt, we are committed to

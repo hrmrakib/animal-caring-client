@@ -19,19 +19,19 @@ const HeroBanner = () => {
         </div>
 
         <div className='absolute grid grid-cols-2 lg:grid-cols-4 justify-center items-center gap-10 -bottom-16 lg:-bottom-7'>
-          <div className='px-7 lg:px-11 py-4 lg:py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
+          <div className='px-7 lg:px-11 py-4 lg:py-6 border dark:border-gray-900 bg-white dark:bg-gray-900 dark:text-white rounded-lg flex flex-col justify-center items-center'>
             <LuBird className='text-4xl lg:text-7xl mb-2 text-purple-600' />
             <h3 className='text-2xl font-semibold'>Bird</h3>
           </div>
-          <div className='px-7 lg:px-11 py-4 lg:py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
+          <div className='px-7 lg:px-11 py-4 lg:py-6 border dark:border-gray-900 dark:bg-gray-900 dark:text-white bg-white rounded-lg flex flex-col justify-center items-center'>
             <PiRabbitLight className='text-4xl lg:text-7xl mb-2 text-purple-600' />
             <h3 className='text-2xl font-semibold'>Rabbit</h3>
           </div>
-          <div className='px-7 lg:px-11 py-4 lg:py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
+          <div className='px-7 lg:px-11 py-4 lg:py-6 border dark:border-gray-900 dark:bg-gray-900 dark:text-white bg-white rounded-lg flex flex-col justify-center items-center'>
             <PiDog className='text-4xl lg:text-7xl mb-2 text-purple-600' />
             <h3 className='text-2xl font-semibold'>Dog</h3>
           </div>
-          <div className='px-7 lg:px-11 py-4 lg:py-6 border bg-white rounded-lg flex flex-col justify-center items-center'>
+          <div className='px-7 lg:px-11 py-4 lg:py-6 border dark:border-gray-900 dark:bg-gray-900 dark:text-white bg-white rounded-lg flex flex-col justify-center items-center'>
             <LuCat className='text-4xl lg:text-7xl mb-2 text-purple-600' />
             <h3 className='text-2xl font-semibold'>Cat</h3>
           </div>
