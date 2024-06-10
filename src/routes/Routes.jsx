@@ -19,6 +19,8 @@ import { baseURL } from "../utils/baseURL";
 import CreateDonationCampaign from "../pages/dashboard/CreateDonationCampaign";
 import AdoptRequests from "../pages/dashboard/AdoptRequests";
 import AdminRoute from "./AdminRoute";
+import MyDonationCampaigns from "../pages/dashboard/MyDonationCampaigns";
+import MyDonations from "../pages/dashboard/MyDonations";
 
 const router = createBrowserRouter([
   {
@@ -65,8 +67,10 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <div className='w-full h-full flex flex-col justify-center items-center'>
-            <h1 className='lg:text-5xl font-bold mb-3'>Welcome to Dashboard</h1>
-            <p>👈 Navigate your tab</p>
+            <h1 className='lg:text-5xl font-bold mb-3 dark:text-gray-100'>
+              Welcome to Dashboard
+            </h1>
+            <p className='dark:text-gray-100'>👈 Navigate your tab</p>
           </div>
         ),
       },
@@ -90,6 +94,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/createDonationCampaign",
         element: <CreateDonationCampaign />,
+      },
+      {
+        path: "/dashboard/myDonationCampaigns",
+        element: <MyDonationCampaigns />,
+      },
+      {
+        path: "/dashboard/myDonations",
+        element: <MyDonations />,
       },
 
       // testing

@@ -76,7 +76,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-black fixed w-full top-0 z-10 ${
+      className={`bg-black dark:bg-gray-900 fixed w-full top-0 z-10 ${
         show ? "translate-y-0" : "-translate-y-full"
       } bg-opacity-30 text-white transition-transform duration-300`}
     >

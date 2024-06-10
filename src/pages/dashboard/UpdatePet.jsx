@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -18,6 +21,10 @@ const UpdatePet = () => {
     longDescription,
   } = useLoaderData();
 
+  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -29,63 +36,69 @@ const UpdatePet = () => {
     const { name, age, category, location, shortDescription, longDescription } =
       data;
 
-    const imageFile = { image: data.petPhoto[0] };
+    console.log(data?.petPhoto?.length);
 
-    console.log(imageFile);
+    if (data?.petPhoto?.length > 0) {
+      const imageFile = { image: data.petPhoto[0] };
 
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+      console.log(imageFile);
 
-    if (res.data.success) {
-      const userDetail = {
-        name: data.name,
-        email: data.email,
-        role: "user",
-        password: data.password,
-        image: res.data.data.display_url,
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      if (res.data.success) {
+        const petDetail = {
+          name,
+          age,
+          category,
+          location,
+          shortDescription,
+          longDescription,
+          image: res.data.data.display_url,
+        };
+
+        const petUpdate = await axiosSecure.put(`/pets/${_id}`, petDetail);
+
+        if (petUpdate.data.modifiedCount > 0) {
+          // show success popup
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${data.name} updated successfully!`,
+            showConfirmButton: false,
+            timer: 1999,
+          });
+          navigate("/dashboard/myAddedPets");
+        }
+      }
+    } else {
+      const petDetail = {
+        name,
+        age,
+        image,
+        category,
+        location,
+        shortDescription,
+        longDescription,
       };
 
-      createUser(email, password)
-        .then(async (userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
+      const petUpdate = await axiosSecure.put(`/pets/${_id}`, petDetail);
 
-          await updateProfile(user, {
-            displayName: name,
-            photoURL: res.data.data.display_url,
-          });
-        })
-        .then(() => {
-          setUser({
-            displayName: name,
-            photoURL: res.data.data.display_url,
-            email: email,
-          });
-        });
-
-      const menuRes = await axiosSecure.post("/users", userDetail);
-
-      console.log(menuRes.data);
-
-      if (menuRes.data.insertedId) {
+      if (petUpdate.data.modifiedCount > 0) {
         // show success popup
-        reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.name} is an user now!`,
+          title: `${data.name} updated successfully!`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1999,
         });
-        navigate("/");
+        navigate("/dashboard/myAddedPets");
       }
     }
-    console.log("with image url", res.data);
-
-    console.log(data);
   };
 
   return (
@@ -106,12 +119,6 @@ const UpdatePet = () => {
             {...register("petPhoto")}
             className='mt-2'
           />
-          <img src={image} className='size-8 rounded-md' alt='' />
-          {/* {errors.petPhoto && (
-            <span className='text-red-600 font-medium'>
-              Pet photo is required
-            </span>
-          )} */}
         </div>
         <div>
           <label htmlFor='name' className='block text-gray-700'>
@@ -225,7 +232,7 @@ const UpdatePet = () => {
             type='submit'
             className='w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200'
           >
-            Add Pet
+            Update
           </button>
         </div>
       </form>

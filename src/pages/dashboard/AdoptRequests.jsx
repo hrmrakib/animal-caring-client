@@ -19,6 +19,10 @@ const AdoptRequests = () => {
 
   console.log(adpotReqs);
 
+  const handleReject = (pet) => {
+    console.log(pet);
+  };
+
   return (
     <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
       <h2 className='text-2xl font-bold mb-6'>Adoption Requests</h2>
@@ -29,16 +33,16 @@ const AdoptRequests = () => {
               #
             </th>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Pet Name
+              User Name
             </th>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Pet Category
+              User Email
             </th>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Pet Image
+              User Phone
             </th>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Adoption Status
+              User Address
             </th>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Actions
@@ -69,7 +73,10 @@ const AdoptRequests = () => {
                   <button className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'>
                     Accept
                   </button>
-                  <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'>
+                  <button
+                    onClick={() => handleReject(pet)}
+                    className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'
+                  >
                     Reject
                   </button>
                 </div>

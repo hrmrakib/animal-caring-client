@@ -18,7 +18,7 @@ const MyAddedPets = () => {
     queryKey: ["myPets"],
     queryFn: async () => {
       // TODO:  include user email for getting his data only
-      const result = await axiosSecure.get(`/my-added-pets`);
+      const result = await axiosSecure.get(`/my-added-pets/${user?.email}`);
       return result.data;
     },
   });
@@ -46,6 +46,23 @@ const MyAddedPets = () => {
         }
       }
     });
+  };
+
+  const handleMarkAdopt = async (pet) => {
+    // const updateAdopt = true;
+    const res = await axiosSecure.patch(`/mark-adopt/${pet._id}`);
+    console.log(res);
+    if (res.data.modifiedCount > 0) {
+      refetch();
+      // show success popup
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `${data.name} mark adopted successfully!`,
+        showConfirmButton: false,
+        timer: 1999,
+      });
+    }
   };
 
   if (loading) {
@@ -111,7 +128,10 @@ const MyAddedPets = () => {
                   >
                     Delete
                   </button>
-                  <button className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'>
+                  <button
+                    onClick={() => handleMarkAdopt(pet)}
+                    className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'
+                  >
                     Mark Adopted
                   </button>
                 </div>
@@ -120,31 +140,6 @@ const MyAddedPets = () => {
           ))}
         </tbody>
       </table>
-
-      {/* <div className='pagination flex items-center justify-between py-3'>
-        <button className='px-3 py-1 border rounded bg-gray-200 text-gray-700'>
-          {"<<"}
-        </button>
-        <button className='px-3 py-1 border rounded bg-gray-200 text-gray-700'>
-          {"<"}
-        </button>
-        <span>
-          Page <strong>1 of 1</strong>
-        </span>
-        <button className='px-3 py-1 border rounded bg-gray-200 text-gray-700'>
-          {">"}
-        </button>
-        <button className='px-3 py-1 border rounded bg-gray-200 text-gray-700'>
-          {">>"}
-        </button>
-        <select className='ml-2 border rounded bg-gray-200 text-gray-700'>
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div> */}
     </div>
   );
 };

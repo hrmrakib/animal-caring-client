@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -9,6 +10,9 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const AddPet = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+
+  const userEmail = user?.email;
 
   const {
     register,
@@ -43,12 +47,11 @@ const AddPet = () => {
       const petDetail = {
         name,
         age,
+        userEmail,
         category,
         location,
         shortDescription,
         longDescription,
-        adpoted: false,
-        // TODO: When adding the pet into the database make sure to store the date and time when the pet was added
         image: res.data.data.display_url,
       };
 
@@ -58,7 +61,7 @@ const AddPet = () => {
 
       if (menuRes.data.insertedId) {
         // show success popup
-        // reset();
+        reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -72,32 +75,39 @@ const AddPet = () => {
   };
 
   return (
-    <div className='max-w-20xl mt-5 mx-auto p-2 md:p-6 bg-white rounded-lg shadow-md'>
-      <h2 className='text-2xl text-center font-bold mb-4'>Add a Pet</h2>
-      <div className='divider'></div>
+    <div className='max-w-20xl mt-5 mx-auto p-2 md:p-6 bg-white dark:bg-gray-900 border rounded-lg shadow-md'>
+      <h2 className='text-2xl text-center font-bold mb-4 dark:text-gray-100 border-b dark:border-gray-600 pb-6'>
+        Add a Pet
+      </h2>
       <form
         className='w-full grid lg:grid-cols-2 items-center gap-5'
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label htmlFor='image' className='block text-gray-700'>
+          <label
+            htmlFor='image'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Pet Image
           </label>
           <input
             type='file'
             {...register("petPhoto", { required: true })}
-            className='mt-2'
+            className='mt-2 dark:bg-gray-900'
           />
         </div>
         <div>
-          <label htmlFor='name' className='block text-gray-700'>
+          <label
+            htmlFor='name'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Pet Name
           </label>
           <input
             name='name'
             type='text'
             {...register("name", { required: true })}
-            className='mt-2 p-2 w-full border rounded'
+            className='mt-2 p-2 w-full border rounded dark:bg-gray-900 dark:text-gray-100'
           />
           {errors.name && (
             <span className='text-red-600 font-medium'>
@@ -106,14 +116,17 @@ const AddPet = () => {
           )}
         </div>
         <div>
-          <label htmlFor='age' className='block text-gray-700'>
+          <label
+            htmlFor='age'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Pet Age
           </label>
           <input
             name='age'
             type='number'
             {...register("age", { required: true })}
-            className='mt-2 p-2 w-full border rounded'
+            className='mt-2 p-2 w-full border rounded dark:bg-gray-900 dark:text-gray-100'
           />
           {errors.age && (
             <span className='text-red-600 font-medium'>
@@ -122,12 +135,15 @@ const AddPet = () => {
           )}
         </div>
         <div>
-          <label htmlFor='category' className='block text-gray-700'>
+          <label
+            htmlFor='category'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Pet Category
           </label>
           <select
             {...register("category", { required: true })}
-            className='p-2 border border-gray-300 rounded'
+            className='p-2 border border-gray-300 rounded dark:bg-gray-900 dark:text-gray-100'
           >
             <option value=''>All Categories</option>
             <option value='Dog'>Dogs</option>
@@ -143,14 +159,17 @@ const AddPet = () => {
           )}
         </div>
         <div>
-          <label htmlFor='location' className='block text-gray-700'>
+          <label
+            htmlFor='location'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Pet Location
           </label>
           <input
             name='location'
             type='text'
             {...register("location", { required: true })}
-            className='mt-2 p-2 w-full border rounded'
+            className='mt-2 p-2 w-full border rounded dark:bg-gray-900 dark:text-gray-100'
           />
           {errors.location && (
             <span className='text-red-600 font-medium'>
@@ -159,14 +178,17 @@ const AddPet = () => {
           )}
         </div>
         <div>
-          <label htmlFor='shortDescription' className='block text-gray-700'>
+          <label
+            htmlFor='shortDescription'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Short Description
           </label>
           <input
             name='shortDescription'
             type='text'
             {...register("shortDescription", { required: true })}
-            className='mt-2 p-2 w-full border rounded'
+            className='mt-2 p-2 w-full border rounded dark:bg-gray-900 dark:text-gray-100'
           />
           {errors.shortDescription && (
             <span className='text-red-600 font-medium'>
@@ -175,14 +197,17 @@ const AddPet = () => {
           )}
         </div>
         <div>
-          <label htmlFor='longDescription' className='block text-gray-700'>
+          <label
+            htmlFor='longDescription'
+            className='block text-gray-700 dark:text-gray-100'
+          >
             Long Description
           </label>
           <input
             name='longDescription'
             type='textarea'
             {...register("longDescription", { required: true })}
-            className='p-2 w-full border border-gray-600 rounded'
+            className='p-2 w-full border border-gray-600 rounded dark:bg-gray-900 dark:text-gray-100'
           />
           {errors.longDescription && (
             <span className='text-red-600 font-medium'>

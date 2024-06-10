@@ -1,64 +1,67 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
 
-const isAdmin = true;
+// const isAdmin = true;
 
 const navLinks = (
   <>
-    <Link
+    <NavLink
       to='/dashboard/addPet'
       className='block py-2.5 px-4 hover:bg-gray-200'
     >
       Add a Pet
-    </Link>
-    <Link
+    </NavLink>
+    <NavLink
       to='/dashboard/myAddedPets'
       className='block py-2.5 px-4 hover:bg-gray-200'
     >
       My Added Pets
-    </Link>
-    <Link
+    </NavLink>
+    <NavLink
       to='/dashboard/adoptionRequests'
       className='block py-2.5 px-4 hover:bg-gray-200'
     >
       Adoption Requests
-    </Link>
-    <Link
+    </NavLink>
+    <NavLink
       to='/dashboard/createDonationCampaign'
       className='block py-2.5 px-4 hover:bg-gray-200'
     >
       Create Donation Campaign
-    </Link>
-    <Link
+    </NavLink>
+    <NavLink
       className='block py-2.5 px-4 hover:bg-gray-200'
       to='/dashboard/myDonationCampaigns'
     >
       My Donation Campaigns
-    </Link>
-    <Link
+    </NavLink>
+    <NavLink
       className='block py-2.5 px-4 hover:bg-gray-200'
       to='/dashboard/myDonations'
     >
       My Donations
-    </Link>
+    </NavLink>
   </>
 );
 
 const adminLinks = (
   <>
-    <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/dashboard/users'>
+    <NavLink
+      className='block py-2.5 px-4 hover:bg-gray-200'
+      to='/dashboard/users'
+    >
       Users
-    </Link>
-    <Link
+    </NavLink>
+    <NavLink
       className='block py-2.5 px-4 hover:bg-gray-200'
       to='/dashboard/petsByAdmin'
     >
       All Pets
-    </Link>
-    <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
+    </NavLink>
+    <NavLink className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
       All Donations
-    </Link>
+    </NavLink>
   </>
 );
 
@@ -66,9 +69,9 @@ const homeLinks = (
   <>
     <div className='divider my-4'></div>
 
-    <Link className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
+    <NavLink className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
       Home
-    </Link>
+    </NavLink>
   </>
 );
 
@@ -82,14 +85,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='flex h-screen bg-gray-100'>
+    <div className='flex h-screen bg-gray-100 dark:bg-gray-900'>
       {/* sidebar */}
-      <div className='lg:w-64 lg:fixed lg:h-full hidden lg:block  bg-white shadow-md'>
-        <div className='p-6 text-center text-xl font-bold'>
+      <div className='lg:w-64 lg:fixed lg:h-full hidden lg:block bg-white dark:bg-gray-900 shadow-md'>
+        <div className='p-6 text-center text-xl font-bold dark:text-gray-100'>
           Pet Adoption Dashboard
         </div>
         {/* large device menu */}
-        <nav className='mt-10'>
+        <nav className='mt-10 *:dark:text-gray-100'>
           {user ? navLinks : navigate("/login")}
 
           {user && isAdmin && adminLinks}
@@ -101,7 +104,7 @@ const Dashboard = () => {
       {/* main content */}
       <div className='lg:ml-64 flex-1 lg:overflow-y-auto flex flex-col'>
         {/* top navbar */}
-        <header className='bg-white shadow-md p-4'>
+        <header className='bg-white dark:bg-gray-900 shadow-md p-4'>
           <div className='max-w-7xl mx-auto flex justify-between items-center'>
             {/* small device menu */}
             <div className='dropdown inline-block lg:hidden'>
@@ -127,7 +130,7 @@ const Dashboard = () => {
               </div>
               <ul
                 tabIndex={0}
-                className='menu menu-sm dropdown-content *:text-black mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
+                className='menu menu-sm dropdown-content *:text-black *:dark:text-gray-100 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
               >
                 {user ? navLinks : navigate("/login")}
 
@@ -137,14 +140,16 @@ const Dashboard = () => {
               </ul>
             </div>
 
-            <h1 className='text-xl md:text-2xl font-bold'>Dashboard</h1>
+            <h1 className='text-xl md:text-2xl font-bold dark:text-gray-100'>
+              Dashboard
+            </h1>
 
             {/* right-side profile */}
             <div className='flex items-center gap-2'>
               <div className='dropdown dropdown-end'>
                 <div tabIndex={0} role='button' className='m-1'>
                   <img
-                    className='w-12 h-12 mr-3 rounded-full border'
+                    className='w-12 h-12 mr-3 rounded-full border-2 border-white dark:border-blue-500'
                     src={user?.photoURL}
                     alt=''
                   />
@@ -162,7 +167,7 @@ const Dashboard = () => {
                   </button>
                 </ul>
               </div>
-              <span className='hidden md:flex font-semibold'>
+              <span className='hidden md:flex font-semibold dark:text-gray-100'>
                 {user?.displayName}
               </span>
             </div>

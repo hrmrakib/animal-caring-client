@@ -49,7 +49,7 @@ const DonationCampaigns = () => {
   };
 
   return (
-    <div className='bg-gray-50 p-10 min-h-screen'>
+    <div className='mt-20 bg-gray-50 dark:bg-gray-900 p-10 min-h-screen'>
       <div className='max-w-7xl mx-auto'>
         {/* <InfiniteScroll
           dataLength={campaigns.length}
@@ -62,18 +62,23 @@ const DonationCampaigns = () => {
         > */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           {campaigns.map((campaign, i) => (
-            <div key={i} className='bg-white p-6 rounded-lg shadow-lg'>
+            <div
+              key={i}
+              className='bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg'
+            >
               <img
                 src={campaign.petImage}
                 alt={campaign.petName}
                 className='w-full h-48 object-cover rounded-t-lg'
               />
               <div className='pt-6 pb-4'>
-                <h3 className='text-2xl font-bold mb-2'>{campaign.petName}</h3>
-                <p className='text-gray-700 mb-1'>
+                <h3 className='text-2xl dark:text-white font-bold mb-2'>
+                  {campaign.petName}
+                </h3>
+                <p className='text-gray-700 dark:text-white mb-1'>
                   Max Donation: ${campaign.maxDonation}
                 </p>
-                <p className='text-gray-700 mb-1'>
+                <p className='text-gray-700 dark:text-white mb-1'>
                   Donated Amount: ${campaign.donatedAmount}
                 </p>
                 <button className='mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200'>

@@ -15,7 +15,7 @@ const AllPets = () => {
 
   return (
     <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
-      <h2 className='text-2xl font-bold mb-6'>My Added Pets</h2>
+      <h2 className='text-2xl font-bold mb-6'>All Pets Information</h2>
       <table className='min-w-full bg-white'>
         <thead>
           <tr>
@@ -57,10 +57,19 @@ const AllPets = () => {
                 />
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
-                {pet.adopted ? "Adopted" : "Not Adopted"}
+                {pet.adopted ? "Adopt" : "Not Adopt"}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
                 <div className='flex space-x-2'>
+                  {pet?.adopted ? (
+                    <button className='bg-red-400 text-white px-3 py-1 rounded hover:bg-red-500'>
+                      Not Adopt
+                    </button>
+                  ) : (
+                    <button className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'>
+                      Adopt
+                    </button>
+                  )}
                   <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
                     Update
                   </button>

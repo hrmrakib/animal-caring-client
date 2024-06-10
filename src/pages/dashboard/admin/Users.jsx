@@ -1,17 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Users = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: users = [] } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data;
     },
   });
-  const makeAdmin = () => {};
+
+  const makeAdmin = async (user) => {
+    const res = await axiosSecure.patch(`/make-admin/${user._id}`);
+
+    if (res.data.modifiedCount > 0) {
+      refetch();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `${user?.name} is an admin now!`,
+        showConfirmButton: false,
+        timer: 1999,
+      });
+    }
+  };
 
   return (
     <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
@@ -46,32 +63,53 @@ const Users = () => {
                 {index + 1}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
-                {user.name}
+                {user?.name}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
-                {user.email}
+                {user?.email}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
                 <img
-                  src={user.image}
+                  src={user?.image}
                   alt='Pet'
                   className='w-16 h-16 object-cover rounded'
                 />
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
-                {user.role ? "user" : "Not user"}
+                {user?.role === "admin" ? (
+                  <MdAdminPanelSettings
+                    title='Admin'
+                    className='text-2xl text-red-600'
+                  />
+                ) : (
+                  <FaUsers title='User' className='text-xl text-green-600' />
+                )}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
                 <div className='flex space-x-2'>
-                  <button
-                    onClick={() => makeAdmin(user)}
-                    className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'
-                  >
-                    Make Admin
-                  </button>
-                  <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'>
-                    Ban
-                  </button>
+                  {user?.role === "admin" ? null : (
+                    <button
+                      onClick={() => makeAdmin(user)}
+                      className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'
+                    >
+                      Make Admin
+                    </button>
+                  )}
+                  {
+                    user?.mainAdmin ? (
+                      <span className='lg:text-2xl font-semibold'>
+                        Main Admin
+                      </span>
+                    ) : null
+
+                    // TODO: implement user ban functionality
+
+                    // <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'>
+                    //   Ban
+                    // </button>
+                  }
+
+                  {user?.role === "admin" && !user?.mainAdmin && "Admin"}
                 </div>
               </td>
             </tr>
