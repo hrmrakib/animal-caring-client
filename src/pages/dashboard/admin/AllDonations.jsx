@@ -39,6 +39,13 @@ const AllDonations = () => {
     });
   };
 
+  const handleDonationStatus = async (campaign) => {
+    const res = await axiosSecure.put(`/donation-status/${campaign._id}`);
+
+    if (res.data?.modifiedCount > 0) {
+      refetch();
+    }
+  };
   return (
     <div className='container mx-auto px-4 py-8'>
       <h1 className='text-3xl font-semibold mb-8'>All Donations</h1>
@@ -86,10 +93,14 @@ const AllDonations = () => {
                   ${campaign.getDonationAmount}
                 </td>
                 <td className='px-6 py-4 border-b border-gray-300'>
-                  {campaign.isPaused ? (
-                    <span className='text-red-500'>Paused</span>
+                  {campaign.pause ? (
+                    <span className='text-red-500 font-bold lg:text-xl'>
+                      Paused
+                    </span>
                   ) : (
-                    <span className='text-green-500'>Active</span>
+                    <span className='text-green-500 font-bold lg:text-xl'>
+                      Active
+                    </span>
                   )}
                 </td>
                 <td className='px-6 py-4 border-b border-gray-300'>
@@ -104,8 +115,11 @@ const AllDonations = () => {
                   >
                     Delete
                   </button>
-                  <button className='bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600'>
-                    {campaign.isPaused ? "Unpause" : "Pause"}
+                  <button
+                    onClick={() => handleDonationStatus(campaign)}
+                    className='bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600'
+                  >
+                    {campaign.pause ? "Unpause" : "Pause"}
                   </button>
                 </td>
               </tr>
