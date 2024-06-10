@@ -1,6 +1,7 @@
 import React from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const AdoptRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -17,10 +18,47 @@ const AdoptRequests = () => {
     },
   });
 
-  console.log(adpotReqs);
-
   const handleReject = (pet) => {
-    console.log(pet);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/adopt-request/${pet._id}`);
+        console.log(res);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${data.name} adopt request rejected!`,
+            showConfirmButton: false,
+            timer: 1999,
+          });
+        }
+      }
+    });
+  };
+
+  const handleAccept = async (pet) => {
+    const res = await axiosSecure.put(`/accept-adopt-req/${pet._id}`);
+    console.log(res.data);
+
+    if (res.data?.modifiedCount > 0) {
+      refetch();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `${pet?.userName}'s - request accepted!`,
+        showConfirmButton: false,
+        timer: 1200,
+      });
+    }
   };
 
   return (
@@ -70,8 +108,11 @@ const AdoptRequests = () => {
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
                 <div className='flex space-x-2'>
-                  <button className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'>
-                    Accept
+                  <button
+                    onClick={() => handleAccept(pet)}
+                    className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'
+                  >
+                    {pet?.accept ? "Accepted" : "Accept"}
                   </button>
                   <button
                     onClick={() => handleReject(pet)}

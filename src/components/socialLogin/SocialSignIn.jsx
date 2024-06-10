@@ -5,12 +5,30 @@ import googleImg from "/assets/google.png";
 import githubImg from "/assets/github.png";
 
 const SocialLogin = () => {
-  const { googleSignIn } = useAuth();
+  const { googleSignIn, githubSignIn } = useAuth();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
   const handleGoogleIn = () => {
     googleSignIn().then((result) => {
+      const userInfo = {
+        name: result.user?.displayName,
+        email: result.user?.email,
+        image: result.user?.photoURL,
+        role: "user",
+      };
+
+      console.log(result.user);
+
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
+        navigate("/");
+      });
+    });
+  };
+
+  const handleGithubIn = () => {
+    githubSignIn().then((result) => {
       const userInfo = {
         name: result.user?.displayName,
         email: result.user?.email,
@@ -36,7 +54,7 @@ const SocialLogin = () => {
       />
       <img
         src={githubImg}
-        onClick={handleGoogleIn}
+        onClick={handleGithubIn}
         className='size-12 border border-gray-700 p-2 cursor-pointer rounded-full'
       />
     </div>

@@ -21,6 +21,8 @@ import AdoptRequests from "../pages/dashboard/AdoptRequests";
 import AdminRoute from "./AdminRoute";
 import MyDonationCampaigns from "../pages/dashboard/MyDonationCampaigns";
 import MyDonations from "../pages/dashboard/MyDonations";
+import AllDonations from "../pages/dashboard/admin/AllDonations";
+import UpdateDonation from "../pages/dashboard/admin/UpdateDonation";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +41,8 @@ const router = createBrowserRouter([
       {
         path: "/petDetails/:id",
         element: <PetDetails />,
-        loader: ({ params }) => fetch(`${baseURL}/pets/${params.id}`),
+        loader: async ({ params }) =>
+          await fetch(`${baseURL}/pets/${params.id}`),
       },
       {
         path: "/login",
@@ -54,8 +57,10 @@ const router = createBrowserRouter([
         element: <DonationCampaigns />,
       },
       {
-        path: "/donationDetails",
+        path: "/donationDetails/:id",
         element: <DonationDetails />,
+        loader: async ({ params }) =>
+          await fetch(`${baseURL}/donations/${params.id}`),
       },
     ],
   },
@@ -89,7 +94,8 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/updatePet/:id",
         element: <UpdatePet />,
-        loader: ({ params }) => fetch(`${baseURL}/pets/${params.id}`),
+        loader: async ({ params }) =>
+          await fetch(`${baseURL}/pets/${params.id}`),
       },
       {
         path: "/dashboard/createDonationCampaign",
@@ -120,8 +126,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/updateDonation/:id",
+        element: <UpdateDonation />,
+        loader: async ({ params }) =>
+          await fetch(`${baseURL}/get-signle-donation-by-admin/${params.id}`),
+      },
+      {
         path: "/dashboard/petsByAdmin",
-        element: <AllPets />,
+        element: (
+          <AdminRoute>
+            <AllPets />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/allDonations",
+        element: (
+          <AdminRoute>
+            <AllDonations />
+          </AdminRoute>
+        ),
       },
     ],
   },

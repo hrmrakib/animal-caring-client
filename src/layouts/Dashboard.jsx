@@ -2,8 +2,6 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
 
-// const isAdmin = true;
-
 const navLinks = (
   <>
     <NavLink
@@ -59,7 +57,10 @@ const adminLinks = (
     >
       All Pets
     </NavLink>
-    <NavLink className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
+    <NavLink
+      className='block py-2.5 px-4 hover:bg-gray-200'
+      to='/dashboard/allDonations'
+    >
       All Donations
     </NavLink>
   </>

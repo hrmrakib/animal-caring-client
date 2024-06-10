@@ -1,148 +1,143 @@
-import React, { useState, useEffect } from "react";
-import { Elements } from "@stripe/react-stripe-js";
-import { stripePromise } from "../../utils/stripeConfig";
-import DonationForm from "./DonationForm";
-import Modal from "react-modal";
+import React, { useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { useLoaderData } from "react-router-dom";
 
-Modal.setAppElement("#root");
+const DonationDetails = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const DonationDetails = ({ campaign }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [recommendedCampaigns, setRecommendedCampaigns] = useState([]);
+  const donationDetails = useLoaderData();
+  console.log({ donationDetails });
 
-  //   useEffect(() => {
-  //     // Fetch recommended campaigns (mocked here)
-  //     const fetchRecommendedCampaigns = () => {
-  //       const campaigns = [
-  //         {
-  //           id: 3,
-  //           petName: "Whiskers",
-  //           petImage: "https://via.placeholder.com/150",
-  //           maxDonation: 400,
-  //           donatedAmount: 100,
-  //           date: "2024-06-03",
-  //         },
-  //         {
-  //           id: 4,
-  //           petName: "Charlie",
-  //           petImage: "https://via.placeholder.com/150",
-  //           maxDonation: 600,
-  //           donatedAmount: 250,
-  //           date: "2024-06-04",
-  //         },
-  //         {
-  //           id: 5,
-  //           petName: "Bella",
-  //           petImage: "https://via.placeholder.com/150",
-  //           maxDonation: 700,
-  //           donatedAmount: 300,
-  //           date: "2024-06-05",
-  //         },
-  //       ];
-  //       setRecommendedCampaigns(campaigns);
-  //     };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  //     fetchRecommendedCampaigns();
-  //   }, []);
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
-  const handleDonateNow = () => {};
+  const recommendedDonations = [
+    {
+      id: 1,
+      petName: "Mittens",
+      petImage: "https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg",
+    },
+    {
+      id: 2,
+      petName: "Charlie",
+      petImage: "https://i.ibb.co/7JM1P2r/pexels-7.jpg",
+    },
+    {
+      id: 3,
+      petName: "Max",
+      petImage: "https://i.ibb.co/8mLhz1H/pexels-8.jpg",
+    },
+  ];
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-semibold mb-4'>Donation Details</h1>
-      <div className='bg-white p-6 rounded-lg shadow-md mb-6'>
+      <h1 className='text-3xl font-semibold mb-8'>Donation Details</h1>
+
+      <div className='bg-white shadow-md rounded-lg overflow-hidden'>
         <img
-          src='https://i.ibb.co/QkrxHTn/pexels-mnannapaneni-20436462.jpg'
-          alt='Pet'
-          className='mb-4 w-full h-64 object-cover rounded-md'
+          src={donationDetails?.image}
+          alt={donationDetails?.name}
+          className='w-full h-64 object-cover'
         />
-        <h2 className='text-2xl font-semibold mb-2'>Help Buddy Get a Home</h2>
-        <p className='text-gray-700 mb-4'>
-          We are raising funds to help Buddy find a loving home. Your donation
-          will go towards his medical expenses and care.
-        </p>
-        <button
-          // onClick={handleDonateNow}
-          onClick={openModal}
-          className='px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition'
-        >
-          Donate Now
-        </button>
-      </div>
-      <div>
-        <h2 className='text-2xl font-semibold mb-4'>Recommended Donations</h2>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-          {/* Example recommended donations */}
-          <div className='bg-white p-4 rounded-lg shadow-md'>
-            <img
-              src='https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg'
-              alt='Pet'
-              className='mb-4 w-full h-40 object-cover rounded-md'
-            />
-            <h3 className='text-xl font-semibold mb-2'>Help Mittens</h3>
-            <p className='text-gray-700 mb-2'>
-              Your donation will help Mittens find a loving home.
-            </p>
-            <button className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition'>
-              View Details
-            </button>
+        <div className='p-6'>
+          <h2 className='text-2xl font-semibold mb-4'>
+            {donationDetails?.name}
+          </h2>
+          <p className='text-gray-700 mb-4'>
+            {donationDetails?.shortDescription}
+          </p>
+          <p className='text-gray-700 mb-6'>
+            {donationDetails.longDescription}
+          </p>
+          <div className='mb-4'>
+            <div className='relative pt-1'>
+              <div className='overflow-hidden h-4 mb-4 text-xs flex rounded bg-blue-200'>
+                <div
+                  style={{
+                    width: `${
+                      (donationDetails?.getDonationAmount /
+                        donationDetails?.maxDonationAmount) *
+                      100
+                    }%`,
+                  }}
+                  className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500'
+                ></div>
+              </div>
+              <span className='text-xs font-semibold inline-block text-blue-600'>
+                ${donationDetails?.getDonationAmount} / $
+                {donationDetails.maxDonationAmount}
+              </span>
+            </div>
           </div>
-          {/* Add more recommended donation cards as needed */}
+          <button
+            onClick={openModal}
+            className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
+          >
+            Donate Now
+          </button>
         </div>
       </div>
-      {modalIsOpen && (
-        <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75'>
-          <div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>
-            <h2 className='text-xl font-semibold mb-4'>Donate to Buddy</h2>
-            <form
-            // onSubmit={handleSubmit}
+
+      <div className='mt-8'>
+        <h3 className='text-xl font-semibold mb-4'>Recommended Donations</h3>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          {recommendedDonations.map((donation) => (
+            <div
+              key={donation.id}
+              className='bg-white shadow-md rounded-lg overflow-hidden'
             >
+              <img
+                src={donation.petImage}
+                alt={donation.petName}
+                className='w-full h-48 object-cover'
+              />
+              <div className='p-4'>
+                <h4 className='text-lg font-semibold mb-2'>
+                  {donation.petName}
+                </h4>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Transition show={isModalOpen} as={React.Fragment}>
+        <Dialog
+          onClose={closeModal}
+          className='fixed inset-0 flex items-center justify-center z-50'
+        >
+          <div className='bg-black bg-opacity-50 fixed inset-0' />
+          <div className='bg-white rounded-lg p-6 w-full max-w-lg mx-auto z-10'>
+            <Dialog.Title className='text-xl font-semibold mb-4'>
+              Donate to {donationDetails.petName}
+            </Dialog.Title>
+            <form>
               <div className='mb-4'>
-                <label className='block text-gray-700 mb-2'>
-                  Donation Amount
-                </label>
+                <label className='block text-gray-700'>Donation Amount</label>
                 <input
                   type='number'
-                  // value={donationAmount}
-                  // onChange={handleDonationChange}
-                  className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                  required
+                  className='w-full px-3 py-2 border rounded'
                 />
               </div>
               <div className='mb-4'>
-                <label className='block text-gray-700 mb-2'>
+                <label className='block text-gray-700'>
                   Credit Card Details
                 </label>
-
-                {/* <CardElement className='px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' /> */}
+                <div className='w-full px-3 py-2 border rounded'>
+                  {" "}
+                  {/* Stripe Credit Card Element Placeholder */}{" "}
+                </div>
               </div>
-              <div className='flex justify-end'>
-                <button
-                  type='button'
-                  onClick={closeModal}
-                  className='px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition mr-2'
-                >
-                  Cancel
-                </button>
-                <button
-                  type='submit'
-                  className='px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition'
-                >
-                  Donate
-                </button>
-              </div>
+              <button
+                type='submit'
+                className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
+              >
+                Submit Donation
+              </button>
             </form>
           </div>
-        </div>
-      )}
+        </Dialog>
+      </Transition>
     </div>
   );
 };

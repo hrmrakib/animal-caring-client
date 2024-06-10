@@ -27,9 +27,6 @@ const CreateDonationCampaign = () => {
       longDescription,
     } = data;
 
-    console.log(data);
-    return;
-
     const imageFile = { image: data.petPicture[0] };
 
     console.log(imageFile);

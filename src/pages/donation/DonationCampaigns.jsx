@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "./../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const initialCampaignsData = [
   {
@@ -18,35 +21,18 @@ const initialCampaignsData = [
     donatedAmount: 150,
     date: "2024-06-02",
   },
-  // Add more campaigns as needed
 ];
 
 const DonationCampaigns = () => {
-  const [campaigns, setCampaigns] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-  const campaignsPerPage = 6;
+  const axiosSecure = useAxiosSecure();
 
-  useEffect(() => {
-    loadCampaigns();
-  }, [page]);
-
-  const loadCampaigns = () => {
-    let sortedCampaigns = initialCampaignsData.sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
-    );
-    const startIndex = (page - 1) * campaignsPerPage;
-    const newCampaigns = sortedCampaigns.slice(
-      startIndex,
-      startIndex + campaignsPerPage
-    );
-
-    setCampaigns((prevCampaigns) => [...prevCampaigns, ...newCampaigns]);
-
-    if (newCampaigns.length < campaignsPerPage) {
-      setHasMore(false);
-    }
-  };
+  const { data: donations = [], refetch } = useQuery({
+    queryKey: ["petDonate"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/donations");
+      return res.data;
+    },
+  });
 
   return (
     <div className='mt-20 bg-gray-50 dark:bg-gray-900 p-10 min-h-screen'>
@@ -61,29 +47,31 @@ const DonationCampaigns = () => {
           }
         > */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {campaigns.map((campaign, i) => (
+          {donations.map((campaign, i) => (
             <div
               key={i}
               className='bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg'
             >
               <img
-                src={campaign.petImage}
-                alt={campaign.petName}
+                src={campaign?.image}
+                alt={campaign?.name}
                 className='w-full h-48 object-cover rounded-t-lg'
               />
               <div className='pt-6 pb-4'>
                 <h3 className='text-2xl dark:text-white font-bold mb-2'>
-                  {campaign.petName}
+                  {campaign?.name}
                 </h3>
                 <p className='text-gray-700 dark:text-white mb-1'>
-                  Max Donation: ${campaign.maxDonation}
+                  Max Donation: ${campaign?.maxDonationAmount}
                 </p>
                 <p className='text-gray-700 dark:text-white mb-1'>
-                  Donated Amount: ${campaign.donatedAmount}
+                  Donated Amount: ${campaign?.getDonationAmount}
                 </p>
-                <button className='mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200'>
-                  View Details
-                </button>
+                <Link to={`/donationDetails/${campaign._id}`}>
+                  <button className='mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition duration-200'>
+                    View Details
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
