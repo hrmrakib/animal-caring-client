@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className='mt-24'>
+    <div className='pt-24 h-screen'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='max-w-sm mx-auto border rounded shadow-sm p-4'
@@ -91,7 +91,7 @@ const Login = () => {
             </span>
           )}
         </div>
-        <div className='flex items-start mb-5'>
+        <div className='flex items-start mb-5 dark:text-white'>
           New Here? Please{"  "}
           <Link to='/register' className='text-blue-600 underline ml-1'>
             Register
@@ -103,7 +103,7 @@ const Login = () => {
         >
           Login
         </button>
-        <div className='divider my-5'>or</div>
+        <div className='divider my-5 dark:text-white'>or</div>
 
         <div>
           <SocialLogin />

@@ -41,7 +41,7 @@ const PetListing = () => {
   }
 
   return (
-    <div className='mt-20 bg-gray-50 dark:bg-gray-900 p-10 min-h-screen'>
+    <div className='pt-24 bg-gray-50 dark:bg-gray-900 p-10 min-h-screen'>
       <div className='max-w-7xl mx-auto'>
         <div className='mb-8 flex flex-col md:flex-row items-center justify-center'>
           <select
@@ -53,7 +53,7 @@ const PetListing = () => {
             <option value='Dog'>Dogs</option>
             <option value='Cat'>Cats</option>
             <option value='Rabbit'>Rabbits</option>
-            <option value='Fish'>Fish</option>
+            <option value='Bird'>Bird</option>
           </select>
           <input
             type='text'

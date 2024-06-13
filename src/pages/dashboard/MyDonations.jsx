@@ -1,21 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MyDonations = () => {
-  // Sample data, this should come from the API in a real application
-  const donations = [
-    {
-      id: 1,
-      petName: "Buddy",
-      petImage: "https://i.ibb.co/QkrxHTn/pexels-mnannapaneni-20436462.jpg",
-      donatedAmount: 50,
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+
+  const userEmail = user?.email;
+
+  const { data: donations = [], refetch } = useQuery({
+    queryKey: ["myDonations"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/payments/${userEmail}`);
+      return res.data;
     },
-    {
-      id: 2,
-      petName: "Mittens",
-      petImage: "https://i.ibb.co/JQnq9yT/pexels-rdne-7516109.jpg",
-      donatedAmount: 75,
-    },
-  ];
+  });
+
+  const handleRefund = async (donation) => {
+    const res = await axiosSecure.put(`/ask-for-refund/${donation._id}`);
+
+    if (res.data?.modifiedCount > 0) {
+      refetch();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Ask for refund successfully!",
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+  };
 
   return (
     <div className='container mx-auto px-4 py-8'>
@@ -35,17 +51,26 @@ const MyDonations = () => {
               <tr key={donation.id}>
                 <td className='px-4 py-2 border'>
                   <img
-                    src={donation.petImage}
-                    alt={donation.petName}
+                    src={donation?.image}
+                    alt={donation?.name}
                     className='h-16 w-16 object-cover rounded'
                   />
                 </td>
-                <td className='px-4 py-2 border'>{donation.petName}</td>
-                <td className='px-4 py-2 border'>${donation.donatedAmount}</td>
+                <td className='px-4 py-2 border'>{donation?.name}</td>
+                <td className='px-4 py-2 border'>${donation?.donation}</td>
                 <td className='px-4 py-2 border'>
-                  <button className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'>
-                    Ask for Refund
-                  </button>
+                  {donation?.refund ? (
+                    <button className='bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600'>
+                      Sent refund request ...
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleRefund(donation)}
+                      className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'
+                    >
+                      Ask for Refund
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

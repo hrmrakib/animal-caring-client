@@ -23,6 +23,8 @@ import MyDonationCampaigns from "../pages/dashboard/MyDonationCampaigns";
 import MyDonations from "../pages/dashboard/MyDonations";
 import AllDonations from "../pages/dashboard/admin/AllDonations";
 import UpdateDonation from "../pages/dashboard/admin/UpdateDonation";
+import PrivateRoute from "./PrivateRoute";
+import MyDonationCampUpdate from "../pages/donation/MyDonationCampUpdate";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +60,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/donationDetails/:id",
-        element: <DonationDetails />,
+        element: (
+          <PrivateRoute>
+            <DonationDetails />
+          </PrivateRoute>
+        ),
         loader: async ({ params }) =>
           await fetch(`${baseURL}/donations/${params.id}`),
       },
@@ -83,6 +89,7 @@ const router = createBrowserRouter([
         path: "/dashboard/addPet",
         element: <AddPet />,
       },
+
       {
         path: "/dashboard/myAddedPets",
         element: <MyAddedPets />,
@@ -104,6 +111,12 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/myDonationCampaigns",
         element: <MyDonationCampaigns />,
+      },
+      {
+        path: "/dashboard/myDonationCampaignUpdate/:id",
+        element: <MyDonationCampUpdate />,
+        loader: async ({ params }) =>
+          fetch(`${baseURL}/my-donation-single-item/${params.id}`),
       },
       {
         path: "/dashboard/myDonations",

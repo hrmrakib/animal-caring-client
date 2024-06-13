@@ -109,7 +109,7 @@ const Register = () => {
         onSubmit={handleSubmit(onSubmit)}
         className='max-w-sm mx-auto border p-4 mt-4 rounded-md'
       >
-        <h2 className='text-2xl text-center text-black font-semibold'>
+        <h2 className='text-2xl text-center text-black dark:text-white font-semibold'>
           Create a new account!
         </h2>
         <div className='mb-3'>
@@ -230,14 +230,14 @@ const Register = () => {
         >
           Register new account
         </button>
-        <div className='flex items-start mt-5'>
+        <div className='flex items-start mt-5 dark:text-white'>
           Already have an account!{"  "} Please
           <Link to='/login' className='text-blue-600 underline ml-1'>
             Login
           </Link>
         </div>
 
-        <div className='divider my-5'>or</div>
+        <div className='divider my-5 dark:text-white'>or</div>
 
         <div>
           <SocialLogin />

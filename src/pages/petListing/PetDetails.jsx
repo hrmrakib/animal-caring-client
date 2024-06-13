@@ -8,14 +8,6 @@ import useAxiosSecure from "./../../hooks/useAxiosSecure";
 
 Modal.setAppElement("#root");
 
-const pet = {
-  id: 1,
-  name: "Buddy",
-  age: 2,
-  location: "New York",
-  image: "https://via.placeholder.com/150",
-};
-
 const PetDetails = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { user } = useAuth();
@@ -43,6 +35,18 @@ const PetDetails = () => {
     shortDescription,
     longDescription,
   } = useLoaderData();
+
+  console.log(
+    "inside pet details",
+    _id,
+    name,
+    age,
+    location,
+    image,
+    category,
+    shortDescription,
+    longDescription
+  );
 
   const openModal = () => {
     if (user && user.email) {

@@ -35,7 +35,7 @@ const DonationCampaigns = () => {
   });
 
   return (
-    <div className='mt-20 bg-gray-50 dark:bg-gray-900 p-10 min-h-screen'>
+    <div className='pt-28 bg-gray-50 dark:bg-gray-900 p-10 min-h-screen'>
       <div className='max-w-7xl mx-auto'>
         {/* <InfiniteScroll
           dataLength={campaigns.length}

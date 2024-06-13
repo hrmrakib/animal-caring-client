@@ -80,7 +80,7 @@ const Navbar = () => {
         show ? "translate-y-0" : "-translate-y-full"
       } bg-opacity-30 text-white transition-transform duration-300`}
     >
-      <div className='w-[90%] mx-auto navbar flex justify-between'>
+      <div className='w-[90%] mx-auto navbar flex justify-between dark:bg-gray-900'>
         <div className='navbar-start max-w-60'>
           <div className='dropdown'>
             <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>

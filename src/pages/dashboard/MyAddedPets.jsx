@@ -70,27 +70,27 @@ const MyAddedPets = () => {
   }
 
   return (
-    <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
-      <h2 className='text-2xl font-bold mb-6'>My Added Pets</h2>
-      <table className='min-w-full bg-white'>
+    <div className='mt-5 max-w-7xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md'>
+      <h2 className='text-2xl font-bold mb-6 dark:text-white'>My Added Pets</h2>
+      <table className='min-w-full bg-white dark:bg-gray-900'>
         <thead>
           <tr>
-            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               #
             </th>
-            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Pet Name
             </th>
-            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Pet Category
             </th>
-            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Pet Image
             </th>
-            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Adoption Status
             </th>
-            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
+            <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
               Actions
             </th>
           </tr>
@@ -98,11 +98,13 @@ const MyAddedPets = () => {
         <tbody>
           {myPets.map((pet, index) => (
             <tr key={index} className='hover:bg-gray-100'>
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {index + 1}
               </td>
-              <td className='px-4 py-2 border-b border-gray-200'>{pet.name}</td>
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
+                {pet.name}
+              </td>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {pet.category}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
@@ -112,25 +114,25 @@ const MyAddedPets = () => {
                   className='w-16 h-16 object-cover rounded'
                 />
               </td>
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {pet.adopted ? "Adopted" : "Not Adopted"}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>
                 <div className='flex space-x-2'>
                   <Link to={`/dashboard/updatePet/${pet._id}`}>
-                    <button className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'>
+                    <button className='bg-blue-500 text-white dark:text-gray-100 px-3 py-1 rounded hover:bg-blue-600'>
                       Update
                     </button>
                   </Link>
                   <button
                     onClick={() => handleDelete(pet)}
-                    className='bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600'
+                    className='bg-red-500 text-white dark:text-gray-100 px-3 py-1 rounded hover:bg-red-600'
                   >
                     Delete
                   </button>
                   <button
                     onClick={() => handleMarkAdopt(pet)}
-                    className='bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600'
+                    className='bg-green-500 text-white dark:text-gray-100 px-3 py-1 rounded hover:bg-green-600'
                   >
                     Mark Adopted
                   </button>

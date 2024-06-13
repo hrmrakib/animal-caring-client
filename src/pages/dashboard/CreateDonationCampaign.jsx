@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -9,6 +10,9 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const CreateDonationCampaign = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+
+  const email = user?.email;
 
   const {
     register,
@@ -40,6 +44,7 @@ const CreateDonationCampaign = () => {
     if (res.data.success) {
       const donationInfo = {
         name,
+        email,
         lastDate,
         maxDonationAmount,
         shortDescription,
@@ -52,11 +57,13 @@ const CreateDonationCampaign = () => {
         donationInfo
       );
 
-      console.log(donationRes.data);
+      console.log(email, donationRes.data);
 
       if (donationRes.data.insertedId) {
         // show success popup
-        reset();
+
+        // TODO: remove reset() --- comment
+        // reset();
         Swal.fire({
           position: "top-end",
           icon: "success",

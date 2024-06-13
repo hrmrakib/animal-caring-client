@@ -95,6 +95,11 @@ const AddPet = () => {
             {...register("petPhoto", { required: true })}
             className='mt-2 dark:bg-gray-900'
           />
+          {errors.petPhoto && (
+            <span className='text-red-600 font-medium'>
+              PetPhoto is required
+            </span>
+          )}
         </div>
         <div>
           <label
@@ -149,7 +154,7 @@ const AddPet = () => {
             <option value='Dog'>Dogs</option>
             <option value='Cat'>Cats</option>
             <option value='Rabbit'>Rabbits</option>
-            <option value='Fish'>Fish</option>
+            <option value='Bird'>Bird</option>
           </select>
           <br />
           {errors.category && (

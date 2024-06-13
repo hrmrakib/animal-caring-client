@@ -1,16 +1,15 @@
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const UpdateDonation = () => {
+const MyDonationCampUpdate = () => {
   const {
-    _id,
-    createdAt,
+    email,
     getDonationAmount,
     image,
     isClose,
@@ -20,22 +19,9 @@ const UpdateDonation = () => {
     name,
     pause,
     shortDescription,
-  } = useLoaderData();
-
-  // TODO: remove
-  console.log(
     _id,
     createdAt,
-    getDonationAmount,
-    image,
-    isClose,
-    lastDate,
-    longDescription,
-    maxDonationAmount,
-    name,
-    pause,
-    shortDescription
-  );
+  } = useLoaderData();
 
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
@@ -50,13 +36,14 @@ const UpdateDonation = () => {
 
   const onSubmit = async (data) => {
     const {
-      getDonationAmount,
-      lastDate,
-      longDescription,
-      maxDonationAmount,
       name,
+      getDonationAmount,
+      maxDonationAmount,
       shortDescription,
+      longDescription,
     } = data;
+
+    console.log(data?.petPhoto?.length);
 
     if (data?.petPhoto?.length > 0) {
       const imageFile = { image: data.petPhoto[0] };
@@ -69,20 +56,19 @@ const UpdateDonation = () => {
         },
       });
 
-      if (res.data?.success) {
-        const donationDetail = {
-          getDonationAmount,
-          lastDate,
-          longDescription,
-          maxDonationAmount,
+      if (res.data.success) {
+        const petDetail = {
           name,
+          getDonationAmount,
+          maxDonationAmount,
           shortDescription,
-          image: res.data?.data?.display_url,
+          longDescription,
+          image: res.data.data.display_url,
         };
 
         const petUpdate = await axiosSecure.put(
-          `/update-donation/${_id}`,
-          donationDetail
+          `/update-donation-campaign-info/${_id}`,
+          petDetail
         );
 
         if (petUpdate.data.modifiedCount > 0) {
@@ -94,26 +80,25 @@ const UpdateDonation = () => {
             showConfirmButton: false,
             timer: 1999,
           });
-          navigate("/dashboard/allDonations");
+          navigate("/dashboard/myDonationCampaigns");
         }
       }
     } else {
-      const updatedInfo = {
-        getDonationAmount,
-        lastDate,
-        longDescription,
-        maxDonationAmount,
+      const petDetail = {
         name,
         image,
+        getDonationAmount,
+        maxDonationAmount,
         shortDescription,
+        longDescription,
       };
 
-      const donationDetail = await axiosSecure.put(
-        `/update-donation/${_id}`,
-        updatedInfo
+      const petUpdate = await axiosSecure.put(
+        `/update-donation-campaign-info/${_id}`,
+        petDetail
       );
 
-      if (donationDetail.data.modifiedCount > 0) {
+      if (petUpdate.data.modifiedCount > 0) {
         // show success popup
         Swal.fire({
           position: "top-end",
@@ -122,7 +107,7 @@ const UpdateDonation = () => {
           showConfirmButton: false,
           timer: 1999,
         });
-        navigate("/dashboard/allDonations");
+        navigate("/dashboard/myDonationCampaigns");
       }
     }
   };
@@ -130,7 +115,7 @@ const UpdateDonation = () => {
   return (
     <div className='max-w-20xl mt-5 mx-auto p-2 md:p-6 bg-white rounded-lg shadow-md'>
       <h2 className='text-2xl text-center font-bold mb-4'>
-        Update Donation Information
+        Update Pet Donation Info
       </h2>
       <div className='divider'></div>
       <form
@@ -141,12 +126,7 @@ const UpdateDonation = () => {
           <label htmlFor='image' className='block text-gray-700'>
             Pet Image
           </label>
-          <input
-            type='file'
-            // defaultValue={image}
-            {...register("petPhoto")}
-            className='mt-2'
-          />
+          <input type='file' {...register("petPhoto")} className='mt-2' />
         </div>
         <div>
           <label htmlFor='name' className='block text-gray-700'>
@@ -167,7 +147,7 @@ const UpdateDonation = () => {
         </div>
         <div>
           <label htmlFor='maxDonationAmount' className='block text-gray-700'>
-            Max Donation Amount
+            MaxDonationAmount
           </label>
           <input
             name='maxDonationAmount'
@@ -178,17 +158,18 @@ const UpdateDonation = () => {
           />
           {errors.maxDonationAmount && (
             <span className='text-red-600 font-medium'>
-              Max Donation Amount is required
+              maxDonationAmount is required
             </span>
           )}
         </div>
+
         <div>
           <label htmlFor='getDonationAmount' className='block text-gray-700'>
-            Get Donation Amount
+            getDonationAmount
           </label>
           <input
             name='getDonationAmount'
-            type='number'
+            type='text'
             defaultValue={getDonationAmount}
             {...register("getDonationAmount", { required: true })}
             className='mt-2 p-2 w-full border rounded'
@@ -199,24 +180,6 @@ const UpdateDonation = () => {
             </span>
           )}
         </div>
-        <div>
-          <label htmlFor='lastDate' className='block text-gray-700'>
-            Change Last Date
-          </label>
-          <input
-            name='lastDate'
-            type='date'
-            defaultValue={lastDate}
-            {...register("lastDate", { required: true })}
-            className='mt-2 p-2 w-full border rounded'
-          />
-          {errors.lastDate && (
-            <span className='text-red-600 font-medium'>
-              lastDate is required
-            </span>
-          )}
-        </div>
-
         <div>
           <label htmlFor='shortDescription' className='block text-gray-700'>
             Short Description
@@ -251,7 +214,7 @@ const UpdateDonation = () => {
             </span>
           )}
         </div>
-        <div className='mt-5'>
+        <div className='mt-5 w-full lg:col-span-2'>
           <button
             type='submit'
             className='w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200'
@@ -264,4 +227,4 @@ const UpdateDonation = () => {
   );
 };
 
-export default UpdateDonation;
+export default MyDonationCampUpdate;
