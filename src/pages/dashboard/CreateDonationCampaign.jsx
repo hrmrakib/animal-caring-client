@@ -62,8 +62,7 @@ const CreateDonationCampaign = () => {
       if (donationRes.data.insertedId) {
         // show success popup
 
-        // TODO: remove reset() --- comment
-        // reset();
+        reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -78,21 +77,26 @@ const CreateDonationCampaign = () => {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-semibold mb-8'>Create Donation Campaign</h1>
+      <h1 className='text-3xl font-semibold mb-8 dark:text-gray-100'>
+        Create Donation Campaign
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='bg-white p-6 rounded-lg shadow-md'
+        className='bg-white p-6 rounded-lg shadow-md dark:bg-gray-900'
       >
         {/* Pet Name */}
         <div className='mb-4'>
-          <label className='block text-gray-700 mb-2' htmlFor='name'>
+          <label
+            className='block text-gray-700 mb-2 dark:text-gray-100'
+            htmlFor='name'
+          >
             Pet Name
           </label>
           <input
             type='text'
             id='name'
             {...register("name", { required: true })}
-            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white'
           />
           {errors.name && (
             <span className='text-red-600 font-medium'>
@@ -102,14 +106,17 @@ const CreateDonationCampaign = () => {
         </div>
         {/* Pet Picture */}
         <div className='mb-4'>
-          <label className='block text-gray-700 mb-2' htmlFor='petPicture'>
+          <label
+            className='block text-gray-700 mb-2 dark:text-gray-100'
+            htmlFor='petPicture'
+          >
             Pet Picture
           </label>
           <input
             type='file'
             id='petPicture'
             {...register("petPicture", { required: true })}
-            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white'
           />
           {errors.petPicture && (
             <span className='text-red-600 font-medium'>
@@ -121,7 +128,7 @@ const CreateDonationCampaign = () => {
         {/* Maximum Donation Amount */}
         <div className='mb-4'>
           <label
-            className='block text-gray-700 mb-2'
+            className='block text-gray-700 mb-2 dark:text-gray-100'
             htmlFor='maxDonationAmount'
           >
             Maximum Donation Amount
@@ -130,7 +137,7 @@ const CreateDonationCampaign = () => {
             type='number'
             id='maxDonationAmount'
             {...register("maxDonationAmount", { required: true })}
-            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white'
           />
           {errors.maxDonationAmount && (
             <span className='text-red-600 font-medium'>
@@ -141,14 +148,17 @@ const CreateDonationCampaign = () => {
 
         {/* Last Date of Donation */}
         <div className='mb-4'>
-          <label className='block text-gray-700 mb-2' htmlFor='lastDate'>
+          <label
+            className='block text-gray-700 mb-2 dark:text-gray-100'
+            htmlFor='lastDate'
+          >
             Last Date of Donation
           </label>
           <input
             type='date'
             id='lastDate'
             {...register("lastDate", { required: true })}
-            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white'
           />
           {errors.lastDate && (
             <span className='text-red-600 font-medium'>
@@ -160,7 +170,7 @@ const CreateDonationCampaign = () => {
         {/* Short Description */}
         <div className='mb-4'>
           <label
-            className='block text-gray-700 mb-2'
+            className='block text-gray-700 mb-2 dark:text-gray-100'
             htmlFor='shortDescription'
           >
             Short Description
@@ -169,7 +179,7 @@ const CreateDonationCampaign = () => {
             type='text'
             id='shortDescription'
             {...register("shortDescription", { required: true })}
-            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white'
           />
           {errors.shortDescription && (
             <span className='text-red-600 font-medium'>
@@ -180,13 +190,16 @@ const CreateDonationCampaign = () => {
 
         {/* Long Description */}
         <div className='mb-4'>
-          <label className='block text-gray-700 mb-2' htmlFor='longDescription'>
+          <label
+            className='block text-gray-700 mb-2 dark:text-gray-100'
+            htmlFor='longDescription'
+          >
             Long Description
           </label>
           <textarea
             id='longDescription'
             {...register("longDescription", { required: true })}
-            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white'
             rows='6'
           />
           {errors.longDescription && (

@@ -48,27 +48,29 @@ const AllDonations = () => {
   };
   return (
     <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-semibold mb-8'>All Donations</h1>
+      <h1 className='text-3xl font-semibold mb-8 dark:text-white'>
+        All Donations
+      </h1>
       <div className='overflow-x-auto'>
-        <table className='min-w-full bg-white shadow-md rounded-lg'>
+        <table className='min-w-full bg-white dark:bg-gray-900 shadow-md rounded-lg'>
           <thead>
             <tr>
-              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 uppercase'>
+              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 dark:text-gray-100 uppercase'>
                 Pet Image
               </th>
-              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 uppercase'>
+              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 dark:text-gray-100 uppercase'>
                 Pet Name
               </th>
-              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 uppercase'>
+              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 dark:text-gray-100 uppercase'>
                 Max Donation
               </th>
-              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 uppercase'>
+              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 dark:text-gray-100 uppercase'>
                 Current Donation
               </th>
-              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 uppercase'>
+              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 dark:text-gray-100 uppercase'>
                 Status
               </th>
-              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 uppercase'>
+              <th className='px-6 py-4 border-b-2 border-gray-300 text-left text-sm leading-4 text-gray-700 dark:text-gray-100 uppercase'>
                 Actions
               </th>
             </tr>
@@ -83,16 +85,16 @@ const AllDonations = () => {
                     className='w-16 h-16 object-cover rounded-full'
                   />
                 </td>
-                <td className='px-6 py-4 border-b border-gray-300'>
+                <td className='px-6 py-4 border-b border-gray-300 dark:text-gray-100'>
                   {campaign?.name}
                 </td>
-                <td className='px-6 py-4 border-b border-gray-300'>
+                <td className='px-6 py-4 border-b border-gray-300 dark:text-gray-100'>
                   ${campaign.maxDonationAmount}
                 </td>
-                <td className='px-6 py-4 border-b border-gray-300'>
+                <td className='px-6 py-4 border-b border-gray-300 dark:text-gray-100'>
                   ${campaign.getDonationAmount}
                 </td>
-                <td className='px-6 py-4 border-b border-gray-300'>
+                <td className='px-6 py-4 border-b border-gray-300 '>
                   {campaign.pause ? (
                     <span className='text-red-500 font-bold lg:text-xl'>
                       Paused

@@ -13,7 +13,7 @@ const Home = () => {
       <div className='w-[90%] mx-auto'>
         <PetsCategory />
         <CallToAction />
-        <AboutUs />
+        {/* <AboutUs /> */}
       </div>
 
       <Overview />

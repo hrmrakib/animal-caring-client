@@ -6,36 +6,36 @@ const navLinks = (
   <>
     <NavLink
       to='/dashboard/addPet'
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
     >
       Add a Pet
     </NavLink>
     <NavLink
       to='/dashboard/myAddedPets'
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
     >
       My Added Pets
     </NavLink>
     <NavLink
       to='/dashboard/adoptionRequests'
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
     >
       Adoption Requests
     </NavLink>
     <NavLink
       to='/dashboard/createDonationCampaign'
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
     >
       Create Donation Campaign
     </NavLink>
     <NavLink
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
       to='/dashboard/myDonationCampaigns'
     >
       My Donation Campaigns
     </NavLink>
     <NavLink
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
       to='/dashboard/myDonations'
     >
       My Donations
@@ -46,19 +46,19 @@ const navLinks = (
 const adminLinks = (
   <>
     <NavLink
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
       to='/dashboard/users'
     >
       Users
     </NavLink>
     <NavLink
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
       to='/dashboard/petsByAdmin'
     >
       All Pets
     </NavLink>
     <NavLink
-      className='block py-2.5 px-4 hover:bg-gray-200'
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
       to='/dashboard/allDonations'
     >
       All Donations
@@ -70,7 +70,10 @@ const homeLinks = (
   <>
     <div className='divider my-4'></div>
 
-    <NavLink className='block py-2.5 px-4 hover:bg-gray-200' to='/'>
+    <NavLink
+      className='block py-2.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-700'
+      to='/'
+    >
       Home
     </NavLink>
   </>

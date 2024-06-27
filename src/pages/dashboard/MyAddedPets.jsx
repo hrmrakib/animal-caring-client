@@ -97,7 +97,10 @@ const MyAddedPets = () => {
         </thead>
         <tbody>
           {myPets.map((pet, index) => (
-            <tr key={index} className='hover:bg-gray-100'>
+            <tr
+              key={index}
+              className='hover:bg-gray-100 dark:hover:bg-gray-700'
+            >
               <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {index + 1}
               </td>

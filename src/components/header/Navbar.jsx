@@ -40,21 +40,21 @@ const Navbar = () => {
 
   // scrolling
 
-  const controlNavbar = () => {
-    if (window.scrollY > lastScrollY) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-    setLastScrollY(window.scrollY);
-  };
+  // const controlNavbar = () => {
+  //   if (window.scrollY > lastScrollY) {
+  //     setShow(false);
+  //   } else {
+  //     setShow(true);
+  //   }
+  //   setLastScrollY(window.scrollY);
+  // };
 
-  useEffect(() => {
-    window.addEventListener("scroll", controlNavbar);
-    return () => {
-      window.removeEventListener("scroll", controlNavbar);
-    };
-  }, [lastScrollY]);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", controlNavbar);
+  //   return () => {
+  //     window.removeEventListener("scroll", controlNavbar);
+  //   };
+  // }, [lastScrollY]);
 
   const handleLogOut = async () => {
     await logOut();
@@ -71,12 +71,15 @@ const Navbar = () => {
       <li className='text-base lg:text-xl'>
         <NavLink to='/donation'>Donation</NavLink>
       </li>
+      <li className='text-base lg:text-xl'>
+        <NavLink to={user ? "/dashboard" : "/login"}>Dashboard</NavLink>
+      </li>
     </>
   );
 
   return (
     <nav
-      className={`bg-black dark:bg-gray-900 fixed w-full top-0 z-10 ${
+      className={`bg-gray-800 dark:bg-gray-900 w-full top-0 z-10 ${
         show ? "translate-y-0" : "-translate-y-full"
       } bg-opacity-30 text-white transition-transform duration-300`}
     >
@@ -106,7 +109,9 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <img className='size-16' src='/assets/logo.png' alt='logo' />
+          <h3 className='md:text-2xl font-bold'>
+            Animal <span className='text-pink-500'>Caring</span>
+          </h3>
         </div>
 
         <div className='navbar-end flex items-center max-w-[70%]'>
@@ -161,12 +166,6 @@ const Navbar = () => {
                         tabIndex={0}
                         className='flex px-2 py-3 bg-white flex-col gap-2 dropdown-content z-[1] menu shadow rounded w-max'
                       >
-                        <Link
-                          to='/dashboard'
-                          className='w-full text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 md:px-5 py-2.5 text-center me-2'
-                        >
-                          <li>Dashboard</li>
-                        </Link>
                         <button
                           onClick={handleLogOut}
                           type='button'

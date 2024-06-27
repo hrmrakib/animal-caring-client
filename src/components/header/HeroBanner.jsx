@@ -5,7 +5,7 @@ import { LuCat } from "react-icons/lu";
 
 const HeroBanner = () => {
   return (
-    <div className="bg-[url('/assets/banner.jpg')] w-full bg-cover bg-no-repeat bg-center h-[600px]">
+    <div className="bg-[url('https://i.ibb.co/BN459CZ/animal.jpg')] w-full bg-cover bg-no-repeat bg-center h-[600px]">
       <div className='relative w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-30'>
         <div className='flex justify-center items-center h-full text-center'>
           <div>

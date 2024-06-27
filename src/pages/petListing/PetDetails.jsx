@@ -118,20 +118,30 @@ const PetDetails = () => {
   };
 
   return (
-    <div className='p-10 min-h-screen bg-gray-50 mt-20'>
-      <div className='max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg'>
-        <img src={image} alt={name} className='w-full h-64  rounded-t-lg' />
+    <div className='p-10 min-h-screen bg-gray-50 dark:bg-gray-900 mt-20'>
+      <div className='max-w-4xl mx-auto bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg'>
+        <img
+          src={image}
+          alt={name}
+          className='w-[50%] mx-auto h-64  rounded-t-lg'
+        />
 
         <div className='flex justify-between'>
           <div>
-            <h2 className='text-3xl font-bold mt-4'>{name}</h2>
-            <p className='text-gray-700 mt-2'>Age: {age}</p>
-            <p className='text-gray-700 mt-2'>Location: {location}</p>
-            <p className='text-gray-700 mt-2'>Category: {category}</p>
-            <p className='text-gray-700 mt-2'>
+            <h2 className='text-3xl font-bold dark:text-gray-100 mt-4'>
+              {name}
+            </h2>
+            <p className='text-gray-700 dark:text-gray-100 mt-2'>Age: {age}</p>
+            <p className='text-gray-700 dark:text-gray-100 mt-2'>
+              Location: {location}
+            </p>
+            <p className='text-gray-700 dark:text-gray-100 mt-2'>
+              Category: {category}
+            </p>
+            <p className='text-gray-700 dark:text-gray-100 mt-2'>
               {shortDescription ? `Short: ${shortDescription}` : ""}
             </p>
-            <p className='text-gray-700 mt-2'>
+            <p className='text-gray-700 dark:text-gray-100 mt-2'>
               {longDescription ? `Description: ${longDescription}` : ""}
             </p>
           </div>
@@ -150,36 +160,42 @@ const PetDetails = () => {
         className='mt-14 fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'
         overlayClassName='fixed inset-0 bg-black bg-opacity-30'
       >
-        <div className='bg-white p-6 rounded-lg shadow-lg max-w-md w-full'>
-          <h2 className='text-2xl font-bold mb-4'>
+        <div className='bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-md w-full'>
+          <h2 className='text-2xl font-bold mb-4 dark:text-gray-100'>
             You want to adopt - {name}
           </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-4'>
-              <label className='block text-gray-700'>User Name</label>
+              <label className='block text-gray-700 dark:text-gray-100'>
+                User Name
+              </label>
               <input
                 type='text'
                 value={userName}
                 disabled
-                className='mt-1 p-2 w-full border border-gray-300 rounded bg-gray-100'
+                className='mt-1 p-2 w-full border border-gray-300 rounded bg-gray-100 dark:bg-gray-900 dark:text-gray-100'
               />
             </div>
             <div className='mb-4'>
-              <label className='block text-gray-700'>Email</label>
+              <label className='block text-gray-700 dark:text-gray-100'>
+                Email
+              </label>
               <input
                 type='email'
                 value={userEmail}
                 disabled
-                className='mt-1 p-2 w-full border border-gray-300 rounded bg-gray-100'
+                className='mt-1 p-2 w-full border border-gray-300 rounded bg-gray-100 dark:bg-gray-900 dark:text-gray-100'
               />
             </div>
             <div className='mb-4'>
-              <label className='block text-gray-700'>Phone Number</label>
+              <label className='block text-gray-700 dark:text-gray-100'>
+                Phone Number
+              </label>
               <input
                 type='text'
                 name='phoneNumber'
                 {...register("phoneNumber", { required: true })}
-                className='mt-1 p-2 w-full border border-gray-300 rounded'
+                className='mt-1 p-2 w-full border border-gray-300 rounded dark:bg-gray-900 dark:text-gray-100'
               />
               {errors.phoneNumber && (
                 <span className='text-red-600 font-medium'>
@@ -188,11 +204,13 @@ const PetDetails = () => {
               )}
             </div>
             <div className='mb-4'>
-              <label className='block text-gray-700'>Address</label>
+              <label className='block text-gray-700 dark:text-gray-100'>
+                Address
+              </label>
               <textarea
                 name='address'
                 {...register("address", { required: true })}
-                className='mt-1 p-2 w-full border border-gray-300 rounded'
+                className='mt-1 p-2 w-full border border-gray-300 rounded dark:bg-gray-900 dark:text-gray-100'
               ></textarea>
               {errors.address && (
                 <span className='text-red-600 font-medium'>

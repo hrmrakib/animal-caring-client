@@ -34,32 +34,42 @@ const MyDonationCampaigns = () => {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-semibold mb-8'>My Donation Campaigns</h1>
+      <h1 className='text-3xl font-semibold mb-8 dark:text-white'>
+        My Donation Campaigns
+      </h1>
       <div className='overflow-x-auto'>
-        <table className='min-w-full bg-white border'>
+        <table className='min-w-full bg-white border dark:border-gray-700 dark:bg-gray-900'>
           <thead>
             <tr>
-              <th className='px-4 py-2 border'>#</th>
-              <th className='px-4 py-2 border'>Pet Name</th>
-              <th className='px-4 py-2 border'>Pet Image</th>
-              <th className='px-4 py-2 border'>Maximum Donation Amount</th>
-              <th className='px-4 py-2 border'>Donation Progress</th>
-              <th className='px-4 py-2 border'>Actions</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>#</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>Pet Name</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>Pet Image</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>
+                Maximum Donation Amount
+              </th>
+              <th className='px-4 py-2 border dark:text-gray-100'>
+                Donation Progress
+              </th>
+              <th className='px-4 py-2 border dark:text-gray-100'>Actions</th>
             </tr>
           </thead>
           <tbody>
             {donationCampaigns.map((campaign, index) => (
               <tr key={campaign.id}>
-                <td className='px-4 py-2 border'>{index + 1}</td>
-                <td className='px-4 py-2 border'>{campaign?.name}</td>
-                <td className='px-4 py-2 border-b border-gray-200'>
+                <td className='px-4 py-2 border dark:text-gray-100'>
+                  {index + 1}
+                </td>
+                <td className='px-4 py-2 border dark:text-gray-100'>
+                  {campaign?.name}
+                </td>
+                <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                   <img
                     src={campaign?.image}
                     alt={campaign?.name}
                     className='w-16 h-16 object-cover rounded'
                   />
                 </td>
-                <td className='px-4 py-2 border'>
+                <td className='px-4 py-2 border dark:text-gray-100'>
                   ${campaign.maxDonationAmount}
                 </td>
                 <td className='px-4 py-2 border'>
@@ -76,7 +86,7 @@ const MyDonationCampaigns = () => {
                         className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500'
                       ></div>
                     </div>
-                    <span className='text-xs font-semibold inline-block text-blue-600'>
+                    <span className='text-lg font-semibold inline-block text-blue-600'>
                       ${campaign.getDonationAmount} / $
                       {campaign.maxDonationAmount}
                     </span>

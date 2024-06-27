@@ -62,9 +62,11 @@ const AdoptRequests = () => {
   };
 
   return (
-    <div className='mt-5 max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md'>
-      <h2 className='text-2xl font-bold mb-6'>Adoption Requests</h2>
-      <table className='min-w-full bg-white'>
+    <div className='mt-5 max-w-7xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md'>
+      <h2 className='text-2xl font-bold mb-6 dark:text-gray-100'>
+        Adoption Requests
+      </h2>
+      <table className='min-w-full bg-white dark:bg-gray-900'>
         <thead>
           <tr>
             <th className='px-4 py-2 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
@@ -89,21 +91,24 @@ const AdoptRequests = () => {
         </thead>
         <tbody>
           {adpotReqs.map((pet, index) => (
-            <tr key={index} className='hover:bg-gray-100'>
-              <td className='px-4 py-2 border-b border-gray-200'>
+            <tr
+              key={index}
+              className='hover:bg-gray-100 dark:hover:bg-gray-700'
+            >
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {index + 1}
               </td>
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {pet?.userName}
               </td>
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {pet?.userEmail}
               </td>
 
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {pet?.phoneNumber}
               </td>
-              <td className='px-4 py-2 border-b border-gray-200'>
+              <td className='px-4 py-2 border-b border-gray-200 dark:text-gray-100'>
                 {pet?.address}
               </td>
               <td className='px-4 py-2 border-b border-gray-200'>

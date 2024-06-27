@@ -35,15 +35,19 @@ const MyDonations = () => {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-semibold mb-8'>My Donations</h1>
+      <h1 className='text-3xl font-semibold mb-8 dark:text-white'>
+        My Donations
+      </h1>
       <div className='overflow-x-auto'>
-        <table className='min-w-full bg-white border'>
+        <table className='min-w-full bg-white border dark:bg-gray-900'>
           <thead>
             <tr>
-              <th className='px-4 py-2 border'>Pet Image</th>
-              <th className='px-4 py-2 border'>Pet Name</th>
-              <th className='px-4 py-2 border'>Donated Amount</th>
-              <th className='px-4 py-2 border'>Actions</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>Pet Image</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>Pet Name</th>
+              <th className='px-4 py-2 border dark:text-gray-100'>
+                Donated Amount
+              </th>
+              <th className='px-4 py-2 border dark:text-gray-100'>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -56,9 +60,13 @@ const MyDonations = () => {
                     className='h-16 w-16 object-cover rounded'
                   />
                 </td>
-                <td className='px-4 py-2 border'>{donation?.name}</td>
-                <td className='px-4 py-2 border'>${donation?.donation}</td>
-                <td className='px-4 py-2 border'>
+                <td className='px-4 py-2 border dark:text-gray-100'>
+                  {donation?.name}
+                </td>
+                <td className='px-4 py-2 border dark:text-gray-100'>
+                  ${donation?.donation}
+                </td>
+                <td className='px-4 py-2 border dark:text-gray-100'>
                   {donation?.refund ? (
                     <button className='bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600'>
                       Sent refund request ...
