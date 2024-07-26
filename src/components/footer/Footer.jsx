@@ -11,6 +11,7 @@ const Footer = () => {
         <div class='grid grid-cols-2 justify-evenly gap-5 px-4 py-6 lg:py-8 md:grid-cols-4'>
           <div>
             <h2 className='text-white'>Animal Caring</h2>
+
             <p className='text-gray-400 my-3'>
               Paw at your fat belly ears back wide eyed pre-sent belly, hand
               when stroked. Rub face on everything...{" "}
