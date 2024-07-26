@@ -79,9 +79,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-gray-800 dark:bg-gray-900 w-full top-0 z-10 ${
+      className={`bg-white dark:bg-gray-900 w-full top-0 z-10 ${
         show ? "translate-y-0" : "-translate-y-full"
-      } bg-opacity-30 text-white transition-transform duration-300`}
+      } bg-opacity-30 text-black transition-transform duration-300`}
     >
       <div className='w-[90%] mx-auto navbar flex justify-between dark:bg-gray-900'>
         <div className='navbar-start max-w-60'>
@@ -104,19 +104,20 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className='menu menu-sm dropdown-content *:text-black mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
+              className='menu menu-sm dropdown-content *:text-black dark:*:text-white mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
             >
               {navLinks}
             </ul>
           </div>
           <h3 className='md:text-2xl font-bold'>
-            Animal <span className='text-pink-500'>Caring</span>
+            <span className='text-black dark:text-white'>Animal</span>{" "}
+            <span className='text-pink-500'>Caring</span>
           </h3>
         </div>
 
         <div className='navbar-end flex items-center max-w-[70%]'>
           <div className='hidden lg:flex lg:mr-3'>
-            <ul className='menu menu-horizontal px-1 *:text-white'>
+            <ul className='menu menu-horizontal px-1 *:text-black dark:*:text-white'>
               {navLinks}
             </ul>
           </div>

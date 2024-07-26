@@ -5,15 +5,17 @@ import { LuCat } from "react-icons/lu";
 
 const HeroBanner = () => {
   return (
-    <div className="bg-[url('https://i.ibb.co/BN459CZ/animal.jpg')] w-full bg-cover bg-no-repeat bg-center h-[600px]">
+    <div className="bg-[url('https://i.ibb.co/TRZsnJg/2.jpg')] w-full bg-cover bg-no-repeat bg-center h-[600px]">
       <div className='relative w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-30'>
         <div className='flex justify-center items-center h-full text-center'>
           <div>
             <h2 className='text-3xl lg:text-5xl font-bold mb-3 text-white'>
-              Find your new best friend
+              Find your new <span className='text-[#ea0bea]'>best</span> friend
             </h2>
             <p className='text-xl lg:text-2xl font-semibold text-white'>
-              Browse pets from our network of over 14,500 shelters and rescues.
+              Browse pets from our network of{" "}
+              <span className='text-[#14e849]'>over 14,500</span> shelters and
+              rescues.
             </p>
           </div>
         </div>
