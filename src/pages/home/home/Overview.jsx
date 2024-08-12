@@ -4,7 +4,7 @@ const bgImg =
 const Overview = () => {
   return (
     <div
-      className={`relative w-full flex justify-center items-center bg-black bg-opacity-30 bg-[url('https://i.ibb.co/PzWKkbT/man-his-dog-outdoors.jpg')] bg-cover bg-center h-[600px]`}
+      className={`relative w-full flex justify-center items-center bg-black bg-opacity-30 bg-[url('/assets/dog-outdoors.jpg')] bg-cover bg-center h-[600px]`}
     >
       <div className='w-full h-full flex flex-col justify-center items-center bg-black bg-opacity-35'>
         <div className='w-[90%] mx-auto flex flex-col justify-center'>

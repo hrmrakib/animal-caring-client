@@ -2,7 +2,7 @@ import { FaTrain } from "react-icons/fa6";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 
-const img = "https://i.ibb.co/DrJKt1w/cats.png";
+const img = "/assets/cats.png";
 
 const WhyChooseUs = () => {
   return (

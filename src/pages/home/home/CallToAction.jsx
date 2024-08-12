@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const img = "https://i.ibb.co/NyFdZpk/close-up-gray-kitten-nature.jpg";
+const img = "/assets/kitten-nature.jpg";
 
 const CallToAction = () => {
   return (
