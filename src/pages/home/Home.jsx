@@ -6,8 +6,20 @@ import AboutUs from "./home/AboutUs";
 import Overview from "./home/Overview";
 import WhyChooseUs from "./home/WhyChooseUs";
 import Testimonial from "./home/Testimonial";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Home = () => {
+  useEffect(() => {
+    AOS.init({
+      delay: 250,
+      duration: 1000,
+      easing: "ease-in-out",
+      once: false,
+      mirror: false,
+    });
+  }, []);
   return (
     <div className='bg-white dark:bg-gray-900'>
       <HeroBanner />

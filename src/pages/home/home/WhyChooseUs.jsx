@@ -22,7 +22,10 @@ const WhyChooseUs = () => {
           become a part of these happy endings.
         </p>
 
-        <div className='mb-6 flex item-center gap-4 md:gap-10 '>
+        <div
+          data-aos='zoom-in'
+          className='mb-6 flex item-center gap-4 md:gap-10 '
+        >
           <div className='bg-red-400 mt-1 p-5 rounded-lg flex items-center justify-center'>
             <FaTrain className='text-4xl text-white' />
           </div>
@@ -36,7 +39,10 @@ const WhyChooseUs = () => {
             </p>
           </div>
         </div>
-        <div className='mb-6 flex item-center gap-4 md:gap-10 '>
+        <div
+          data-aos='zoom-in'
+          className='mb-6 flex item-center gap-4 md:gap-10 '
+        >
           <div className='bg-red-400 mt-1 p-5 rounded-lg flex items-center justify-center'>
             <IoChatbubbleEllipsesOutline className='text-4xl text-white' />
           </div>
@@ -50,7 +56,7 @@ const WhyChooseUs = () => {
             </p>
           </div>
         </div>
-        <div className='flex item-center gap-10'>
+        <div data-aos='zoom-in' className='flex item-center gap-10'>
           <div className='bg-red-400 mt-1 p-5 rounded-lg flex items-center justify-center'>
             <MdOutlinePhoneInTalk className='text-4xl text-white' />
           </div>
