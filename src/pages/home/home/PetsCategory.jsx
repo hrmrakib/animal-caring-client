@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const PetsCategory = () => {
   const [category, setCategory] = useState([]);
+
   useEffect(() => {
     fetch("/category.json")
       .then((res) => res.json())
@@ -16,6 +17,7 @@ const PetsCategory = () => {
       <div className='grid lg:grid-cols-4 items-end gap-12'>
         {category.map((item) => (
           <div
+            data-aos='flip-up'
             key={item.name}
             className='w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'
           >
