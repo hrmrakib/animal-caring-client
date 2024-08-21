@@ -5,6 +5,7 @@ import CallToAction from "./home/CallToAction";
 import AboutUs from "./home/AboutUs";
 import Overview from "./home/Overview";
 import WhyChooseUs from "./home/WhyChooseUs";
+import Testimonial from "./home/Testimonial";
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
 
       <div className='w-[90%] mx-auto'>
         <WhyChooseUs />
+        <Testimonial />
       </div>
     </div>
   );
